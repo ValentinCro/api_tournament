@@ -22,7 +22,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/")
+     * @Route("/api")
      */
     public function indexAction()
     {
