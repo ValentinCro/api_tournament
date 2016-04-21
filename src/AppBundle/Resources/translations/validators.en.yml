@@ -1,0 +1,6 @@
+product:
+    name:
+        not_blank: The name is required
+        min_length: The name must be at least {{ limit }} characters long
+    price:
+        positive: The price must be positive

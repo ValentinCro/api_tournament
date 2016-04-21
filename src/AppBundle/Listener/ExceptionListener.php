@@ -2,6 +2,7 @@
 
 namespace AppBundle\Listener;
 
+use AppBundle\Exception\ConstraintViolationException;
 use JMS\Serializer\Serializer;
 use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,22 +14,19 @@ class ExceptionListener {
      * @var Logger
      */
     protected $logger;
-
-    /**
-     * @var Serializer
-     */
-    protected $serializer;
     
-    public function __construct(Logger $logger, Serializer $serializer) {
+    public function __construct(Logger $logger) {
         $this->logger = $logger;
-        $this->serializer =  $serializer;
     }
     
     public function onKernelException(GetResponseForExceptionEvent $event) {
         $exception = $event->getException();
 
-        // If instance of HttpException then send expected status code
-        if ($exception instanceof HttpException) {
+        // If instance of ConstraintViolationException then return the json message
+        if ($exception instanceof ConstraintViolationException) {
+            $event->setResponse(new Response($exception->getMessage(), $exception->getStatusCode()));
+        } else if ($exception instanceof HttpException) {
+            // If instance of HttpException then send expected status code
             $this->logger->addInfo(get_class($exception) . ' (' . $exception->getStatusCode() . ') : ' . $event->getRequest()->getRequestUri());
             $event->setResponse(new Response('', $exception->getStatusCode()));
         } else {

@@ -3,7 +3,6 @@ services:
         class: AppBundle\Listener\ExceptionListener
         arguments:
             - '@logger'
-            - '@jms_serializer'
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
 
@@ -12,3 +11,5 @@ services:
         arguments:
             - '@logger'
             - '@doctrine.orm.entity_manager'
+            - '@validator'
+            - '@jms_serializer'
