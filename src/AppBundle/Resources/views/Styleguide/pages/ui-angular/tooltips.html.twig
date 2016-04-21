@@ -1,0 +1,96 @@
+{% set sgLeftWidth = '1_4' %}
+{% set sgRightWidth = '3_4' %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button [m]ui-tooltip="Whoa, I'm a tooltip"[/m]>
+    Default tooltip
+</button>
+    {% endblock %}
+{% endembed %}
+
+<h4>Positions</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button ui-tooltip="Whoa, I'm a tooltip" [m]ui-tooltip-options="{position: 'bottom left'}"[/m]>
+    Positioned tooltip
+</button>
+    {% endblock %}
+{% endembed %}
+
+<h5 class="e-h5">Available positions</h5>
+
+<pre>
+'top left'
+'left top'
+'left middle'
+'left bottom'
+'bottom left'
+'bottom center'
+'bottom right'
+'right bottom'
+'right middle' (default)
+'right top'
+'top right'
+'top center'
+</pre>
+
+<h4>Style</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button ui-tooltip="Whoa, I'm a tooltip" [m]ui-tooltip-options="{style: 'success'}"[/m]>
+    Success tooltip
+</button>
+[...]
+<br>
+<button ui-tooltip="Whoa, I'm a tooltip" [m]ui-tooltip-options="{style: 'info'}"[/m]>
+    Info tooltip
+</button>
+<br>
+<button ui-tooltip="Whoa, I'm a tooltip" [m]ui-tooltip-options="{style: 'warning'}"[/m]>
+Warning tooltip
+</button>
+<br>
+<button ui-tooltip="Whoa, I'm a tooltip" [m]ui-tooltip-options="{style: 'danger'}"[/m]>
+Danger tooltip
+</button>
+<br>
+<button ui-tooltip="Whoa, I'm a tooltip" [m]ui-tooltip-options="{style: 'status-requested'}"[/m]>
+Status requested tooltip
+</button>
+<br>
+<button ui-tooltip="Whoa, I'm a tooltip" [m]ui-tooltip-options="{style: 'status-pending'}"[/m]>
+Status pending tooltip
+</button>
+<br>
+<button ui-tooltip="Whoa, I'm a tooltip" [m]ui-tooltip-options="{style: 'status-success'}"[/m]>
+Status success tooltip
+</button>
+<br>
+<button ui-tooltip="Whoa, I'm a tooltip" [m]ui-tooltip-options="{style: 'status-failed'}"[/m]>
+Status failed tooltip
+</button>
+<br>
+<button ui-tooltip="Whoa, I'm a tooltip" [m]ui-tooltip-options="{style: 'status-killed'}"[/m]>
+Status killed tooltip
+</button>
+[/...]
+    {% endblock %}
+{% endembed %}
+
+<h5 class="e-h5">Available styles</h5>
+
+<pre>
+'default' (default)
+'success'
+'info'
+'warning'
+'danger'
+'status-requested'
+'status-pending'
+'status-success'
+'status-failed'
+'status-killed'
+</pre>

@@ -1,0 +1,74 @@
+{% set sgLeftWidth = '1_4' %}
+{% set sgRightWidth = '3_4' %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button"
+        class="o-button"
+        ui-click-confirm="">
+    Confirm default
+</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button"
+        class="o-button"
+        ui-click-confirm=""
+        ui-click-confirm-options='{
+            type: "default",
+            title: "Title",
+            message: "This is the confirm message",
+            cancel: "No, thanks",
+            confirm: "Yes, please!"
+        }'>
+    Confirm all options
+</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button"
+        class="o-button"
+        ui-click-confirm=""
+        ui-click-confirm-options='{
+            type: "danger",
+            message: "You are about to do something dangerous!",
+            confirm: "Do it!",
+        }'>
+    Confirm danger
+</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button"
+        class="o-button"
+        ui-click-confirm=""
+        ui-click-confirm-options='{
+            type: "remove",
+            message: "You are about to remove something!",
+            confirm: "Remove"
+        }'>
+    Confirm remove
+</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button"
+        class="o-button"
+        ui-click-confirm=""
+        ui-click-confirm-options='{
+            type: "success",
+            message: "You are about to do something good!",
+            confirm: "Yes, of course!"
+        }'>
+    Confirm success
+</button>
+    {% endblock %}
+{% endembed %}

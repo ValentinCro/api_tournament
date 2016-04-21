@@ -1,0 +1,19 @@
+<p>
+    Display white block with paddings
+</p>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<div class="[m]o-paper-sheet[/m]">
+    [...]Content...[/...]
+</div>
+
+<div class="o-paper-sheet [m]as--loading[/m]">
+    [m]<div class="o-paper-sheet__loader">
+        <i class="fa fa-spinner fa-spin u-mr-5"></i>
+        Loading...
+    </div>[/m]
+    [...]Content loading...[/...]
+</div>
+    {% endblock %}
+{% endembed %}

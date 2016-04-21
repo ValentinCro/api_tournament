@@ -1,0 +1,159 @@
+.f-radio-group,
+.f-checkbox-group {
+  margin-left: -15px;
+
+  .f-radio,
+  .f-checkbox {
+    margin-left: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.f-radio,
+.f-checkbox {
+  display: block;
+  position: relative;
+  min-height: 20px;
+  margin: 0 0 5px 0;
+  padding-left: 1.4em;
+  font-weight: normal;
+  user-select: none;
+  cursor: pointer;
+
+  &.as--inline {
+    display: inline-block;
+  }
+
+  input {
+    position: absolute;
+    margin: 0;
+    top: .2em;
+    left: 0;
+  }
+
+  input:disabled ~ span,
+  input.disabled ~ span {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  .f-radio-checkbox-validation (success, @color-success);
+  .f-radio-checkbox-validation (info, @color-info);
+  .f-radio-checkbox-validation (warning, @color-warning);
+  .f-radio-checkbox-validation (danger, @color-danger);
+}
+
+// Fancy radio & checkbox
+// -------------------------
+.f-radio:not(.as--native),
+.f-checkbox:not(.as--native) {
+  padding-left: 1.6em;
+
+  input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  input + .f-radio__indicator,
+  input + .f-checkbox__indicator {
+    overflow: hidden;
+    position: absolute;
+    top: .2em;
+    left: 0;
+    width: 1em;
+    height: 1em;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2);
+    transition: .2s;
+
+    &:after {
+      content: '';
+      position: absolute;
+      opacity: 0;
+      transition: .2s;
+    }
+  }
+
+  input:checked + .f-radio__indicator,
+  input:checked + .f-checkbox__indicator {
+    box-shadow: inset 0 0 0 1px;
+
+    &:after {
+      opacity: 1;
+    }
+  }
+
+  input:not(:checked):not(:disabled):hover + .f-radio__indicator,
+  input:not(:checked):not(:disabled):focus + .f-radio__indicator,
+  input:not(:checked):not(:disabled):hover + .f-checkbox__indicator,
+  input:not(:checked):not(:disabled):focus + .f-checkbox__indicator {
+    box-shadow: inset 0 0 0 1px;
+  }
+
+  input:checked:focus + .f-radio__indicator,
+  input:checked:focus + .f-checkbox__indicator {
+    box-shadow: inset 0 0 0 2px;
+  }
+}
+
+// Fancy radio
+// -------------------------
+.f-radio:not(.as--native) {
+
+  input + .f-radio__indicator {
+    border-radius: 100%;
+
+    &:after {
+      top: 4px;
+      left: 4px;
+      right: 4px;
+      bottom: 4px;
+      box-shadow: inset 0 0 20px;
+      border-radius: 100%;
+      transform: scale(0);
+    }
+  }
+
+  input:checked + .f-radio__indicator {
+    &:after {
+      transform: scale(1);
+    }
+  }
+}
+
+// Fancy checkbox
+// -------------------------
+.f-checkbox:not(.as--native) {
+
+  input + .f-checkbox__indicator {
+    border-radius: 2px;
+
+    &:after {
+      top: -.15em;
+      left: .47em;
+      width: .45em;
+      height: .9em;
+      border: .2em solid;
+      border-top: none;
+      border-left: none;
+      transform: translateX(.2em) rotate(45deg);
+    }
+  }
+
+  input:checked + .f-checkbox__indicator  {
+    &:after {
+      transform: translateX(0) rotate(45deg);
+    }
+  }
+}
+
+.f-radio-checkbox-validation (@state, @color) {
+  &.as--@{state},
+  .f-group.as--@{state} & {
+   color: @color;
+  }
+}

@@ -1,0 +1,58 @@
+.c-click-confirm-modal {
+  word-wrap: break-word;
+
+  .modal-content {
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    border-radius: 4px;
+  }
+
+  &__header {
+    padding: 10px 30px 0 30px;
+    font-size: 18px;
+    font-family: luengobold, sans-serif;
+    text-align: center;
+  }
+
+  &__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35px;
+    height: 35px;
+    font-size: 30px;
+    line-height: 30px;
+    font-family: luengolight, sans-serif;
+    opacity: .5;
+    transition: .2s;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
+
+    &:active,
+    &:active:focus {
+      outline: none;
+    }
+  }
+
+  &__body {
+    padding: 5px 10px 0 10px;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  &__footer {
+    .clearfix();
+    padding: 10px;
+  }
+
+  &__btn-cancel {
+    float: left;
+  }
+
+  &__btn-confirm {
+    float: right;
+  }
+}

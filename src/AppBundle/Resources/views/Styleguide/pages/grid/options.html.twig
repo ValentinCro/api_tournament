@@ -1,0 +1,354 @@
+<p>
+    The grid can be modified by classes call "modifiers". A modifier looks like <code>{{ '.as--modifier-name@suffix'|e }}</code> (<code>{{ '@suffix'|e }}</code> is optional).
+</p>
+
+<h4>Responsive suffix for modifiers</h4>
+
+<div class="o-table-responsive">
+    <table class="o-table as--bordered">
+        <tr>
+            <th>
+                All
+            </th>
+            <th>
+                450px +
+            </th>
+            <th>
+                600px +
+            </th>
+            <th>
+                800px +
+            </th>
+            <th>
+                1000px +
+            </th>
+            <th>
+                1200px +
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <em>No suffix</em>
+            </td>
+            <td>
+                <code>@sm</code>
+            </td>
+            <td>
+                <code>@md</code>
+            </td>
+            <td>
+                <code>@lg</code>
+            </td>
+            <td>
+                <code>@xl</code>
+            </td>
+            <td>
+                <code>@xxl</code>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h4>Row modifiers</h4>
+
+<div class="o-table-responsive">
+    <table class="o-table as--bordered">
+        <tr>
+            <td colspan="2">
+                <strong>Columns horizontal alignment</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--h-align-left</code>
+            </td>
+            <td>
+                Horizontal align left columns. <small>[default]</small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--h-align-center</code>
+            </td>
+            <td>
+                Horizontal align center columns.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--h-align-right</code>
+            </td>
+            <td>
+                Horizontal align right columns.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <strong>Columns vertical alignment</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--v-align-top</code>
+            </td>
+            <td>
+                Vertical align top columns.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--v-align-center</code>
+            </td>
+            <td>
+                Vertical align center columns.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--v-align-bottom</code>
+            </td>
+            <td>
+                Vertical align bottom columns.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--v-align-stretch</code>
+            </td>
+            <td>
+                Vertical stretch columns (all columns have same height). <small>[default]</small>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Columns gutters
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--gutter-30</code>
+            </td>
+            <td>
+                Set gutters between columns to 30px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--gutter-20</code>
+            </td>
+            <td>
+                Set gutters between columns to 20px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--gutter-15</code>
+            </td>
+            <td>
+                Set gutters between columns to 15px. <small>[default]</small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--gutter-10</code>
+            </td>
+            <td>
+                Set gutters between columns to 10px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--gutter-5</code>
+            </td>
+            <td>
+                Set gutters between columns to 5px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--gutter-0</code>
+            </td>
+            <td>
+                Set gutters between columns to 0px.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Columns horizontal gutters
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--h-gutter-30</code>
+            </td>
+            <td>
+                Set horizontal gutters between columns to 30px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--h-gutter-20</code>
+            </td>
+            <td>
+                Set horizontal gutters between columns to 20px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--h-gutter-15</code>
+            </td>
+            <td>
+                Set horizontal gutters between columns to 15px. <small>[default]</small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--h-gutter-10</code>
+            </td>
+            <td>
+                Set horizontal gutters between columns to 10px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--h-gutter-5</code>
+            </td>
+            <td>
+                Set horizontal gutters between columns to 5px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--h-gutter-0</code>
+            </td>
+            <td>
+                Set horizontal gutters between columns to 0px.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Columns vertical gutters
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--v-gutter-30</code>
+            </td>
+            <td>
+                Set vertical gutters between columns to 30px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--v-gutter-20</code>
+            </td>
+            <td>
+                Set vertical gutters between columns to 20px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--v-gutter-15</code>
+            </td>
+            <td>
+                Set vertical gutters between columns to 15px. <small>[default]</small>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--v-gutter-10</code>
+            </td>
+            <td>
+                Set vertical gutters between columns to 10px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--v-gutter-5</code>
+            </td>
+            <td>
+                Set vertical gutters between columns to 5px.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--v-gutter-0</code>
+            </td>
+            <td>
+                Set vertical gutters between columns to 0px.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Advanced
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--gutter-bottom</code>
+            </td>
+            <td>
+                Add a margin bottom for the row equal to the vertical gutter.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--cols-w-auto</code>
+            </td>
+            <td>
+                Set the width of columns to automatic (flex).
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--no-flex</code>
+            </td>
+            <td>
+                Disable flex on the row.
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h4>Columns modifiers</h4>
+
+<div class="o-table-responsive">
+    <table class="o-table as--bordered">
+        <tr>
+            <td colspan="2">
+                <strong>Columns width</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--x_y</code>
+            </td>
+            <td>
+                Set the width of a column. <code>x_y</code> is a fraction like <code>x ÷ y</code>.<br>
+                <code>x</code> is an integer between 1 and <code>y</code>.<br>
+                <code>y</code> is an integer between 1 and 8.<br>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Advanced
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--w-auto</code>
+            </td>
+            <td>
+                Need the row <code>.g-row</code> to have the modifier <code>.as--cols-w-auto</code>. The width of the column will take the needed space.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>.as--w-auto-full</code>
+            </td>
+            <td>
+                Need the row <code>.g-row</code> to have the modifier <code>.as--cols-w-auto</code>. The width of the column will take the available space.
+            </td>
+        </tr>
+    </table>
+</div>

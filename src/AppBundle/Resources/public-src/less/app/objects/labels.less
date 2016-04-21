@@ -1,0 +1,91 @@
+.o-label {
+  display: inline;
+  vertical-align: 10%;
+  padding: 2px 5px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.4;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: .25em;
+  color: #fff;
+  background: #777777;
+
+  &:empty {
+    display: none;
+  }
+
+  &.as--xl {
+    font-size: 16px;
+  }
+
+  &.as--lg {
+    font-size: 14px;
+  }
+
+  &.as--sm {
+    padding: 1px 3px;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  &.as--xs {
+    padding: 1px 2px;
+    font-size: 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  &.as--xxs {
+    padding: 1px 2px;
+    font-size: 7px;
+    text-transform: uppercase;
+  }
+
+  &.as--light {
+    color: #666;
+    background-color: #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .1);
+  }
+
+  &.as--primary {
+    background-color: @color-primary;
+  }
+
+  &.as--success {
+    background-color: @color-success;
+  }
+
+  &.as--info {
+    background-color: @color-info;
+  }
+
+  &.as--warning {
+    background-color: @color-warning;
+  }
+
+  &.as--danger {
+    background-color: @color-danger;
+  }
+
+  &.as--status-requested {
+    background: @color-status-requested;
+  }
+
+  &.as--status-pending {
+    background: @color-status-pending;
+  }
+
+  &.as--status-success {
+    background: @color-status-success;
+  }
+
+  &.as--status-failed {
+    background: @color-status-failed;
+  }
+
+  &.as--status-killed {
+    background: @color-status-killed;
+  }
+}

@@ -1,0 +1,75 @@
+div[growl] {
+  z-index: 1000 !important;
+}
+
+.growl-container.growl-fixed {
+  width: 280px;
+}
+.growl-container.growl-fixed.top-center {
+  margin-left: -140px;
+}
+
+@media only screen and (min-width: @mq-md) {
+  .growl-container.growl-fixed {
+    width: 400px;
+  }
+  .growl-container.growl-fixed.top-center {
+    margin-left: -200px;
+  }
+}
+
+.growl-container > .growl-item.ng-enter,
+.growl-container > .growl-item.ng-leave {
+  transition: .5s;
+}
+
+// Colors
+// -------------------------
+
+.growl-container > .alert {
+  .o-alert;
+  .o-alert.as--colorful;
+  word-wrap: break-word;
+  
+  &.icon {
+    position: relative;
+    background-image: none;
+
+    &:before {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 0.2em;
+      font-size: 1.4em !important;
+    }
+  }
+}
+
+.growl-container > .alert-success {
+  .o-alert.as--colorful.as--success;
+  &.icon {
+    .fa-left('check');
+  }
+}
+
+.growl-container > .alert-info {
+  .o-alert.as--colorful.as--info;
+  &.icon {
+    .fa-left('info-circle');
+  }
+}
+
+.growl-container > .alert-warning.icon {
+  .o-alert.as--colorful.as--warning;
+  &.icon {
+    .fa-left('exclamation-circle');
+  }
+}
+
+.growl-container > .alert-error,
+.growl-container > .alert-danger {
+  .o-alert.as--colorful.as--danger;
+  &.icon {
+    .fa-left('exclamation-triangle');
+  }
+}

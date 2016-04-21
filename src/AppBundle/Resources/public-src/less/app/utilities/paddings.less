@@ -1,0 +1,25 @@
+// Paddings
+// -------------------------
+.u-p(0);
+.u-p(5);
+.u-p(10);
+.u-p(15);
+.u-p(20);
+
+.u-p(@size, @prefix: test) {
+  .u-p-@{size} {
+    margin: @size*1px;
+  }
+  .u-pt-@{size} {
+    margin-top: @size*1px;
+  }
+  .u-pb-@{size} {
+    margin-bottom: @size*1px;
+  }
+  .u-pl-@{size} {
+    margin-left: @size*1px;
+  }
+  .u-pr-@{size} {
+    margin-right: @size*1px;
+  }
+}

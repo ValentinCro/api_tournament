@@ -1,0 +1,43 @@
+html {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  min-height: 100%;
+  overflow-y: scroll;
+  background: @color-bg-global;
+  min-width: 300px;
+}
+
+.l-main-content {
+  z-index: 1;
+  padding-top: @topbar-height;
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: @color-bg-content;
+
+  & > * {
+    width: 100%;
+  }
+
+  & > .l-container,
+  & > .l-container-full {
+    flex-grow: 1;
+    width: 100%;
+  }
+}
+
+.l-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.l-container-full {
+  padding: 15px;
+}

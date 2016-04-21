@@ -1,0 +1,54 @@
+.sg-l-navbar {
+  color: #fff;
+  background: @color-dark;
+  padding-bottom: 40px;
+
+  a {
+    color: inherit;
+  }
+
+  &__logo {
+    height: 0;
+    padding-top: 2%;
+    padding-bottom: 40%;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, .05);
+  }
+
+  &__nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li:first-child {
+      margin-top: -10px;
+    }
+
+    li > span {
+      display: block;
+      position: relative;
+      font-size: 16px;
+      font-family: luengoultralight, sans-serif;
+      padding: 15px 20px 10px 20px;
+      margin-bottom: 10px;
+
+      &:after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 20px;
+        width: 20%;
+        height: 1px;
+        background: #fff;
+        opacity: .3;
+      }
+    }
+
+    li > a {
+      display: block;
+      font-size: 14px;
+      padding: 2px 20px;
+    }
+  }
+}

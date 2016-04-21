@@ -1,1 +1,32 @@
-Hello World!
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WebApp</title>
+
+    <!-- build:app-css -->
+    <link rel="stylesheet" href="/bundles/app/css/app.0.0.0.css">
+    <!-- endbuild -->
+</head>
+
+<body id="app" ng-app="app" ng-controller="AppController as global" class="">
+    <topbar view="index" ></topbar>
+
+    <div class="l-main-content" ui-view autoscroll>
+    </div>
+
+    <div class="l-footer">
+        // My App //
+    </div>
+
+    <div growl></div>
+
+    <!-- build:app-js -->
+    <script src="/bundles/app/js/bower.0.0.0.js"></script>
+    <script src="/bundles/app/js/saagie-ui.0.0.0.js"></script>
+    <script src="/bundles/app/js/app.0.0.0.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

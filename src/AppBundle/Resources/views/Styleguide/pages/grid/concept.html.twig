@@ -1,0 +1,96 @@
+<div class="e-content">
+    <p>
+        The grid is a responsive, mobile first fluid grid system. It's based on fractions of the available width space.
+    </p>
+
+    <h4>
+        Introduction
+    </h4>
+
+    <p>
+        The grid plays with rows (<code>.g-row</code>), columns (<code>.g-col</code>) and inner container for columns (<code>.g-col__inner</code>).
+    </p>
+
+    <ul>
+        <li>
+            A row (<code>.g-row</code>) can be placed anywhere you want.
+        </li>
+        <li>
+            A column (<code>.g-col</code>) must me placed in a row (<code>.g-row</code>) as a immediate child.
+        </li>
+        <li>
+            A row (<code>.g-row</code>) must have at least one column (<code>.g-col</code>) as a immediate child.
+        </li>
+        <li>
+            A row (<code>.g-row</code>) can only have columns (<code>.g-col</code>) as immediate children.
+        </li>
+        <li>
+            By default, a column (<code>.g-col</code>) take 100% off the available space.
+        </li>
+        <li>
+            You must add an inner container (<code>.g-col__inner</code>) in a column (<code>.g-col</code>) and put your content in this inner container. This is because column gutters are done with padding in the columns and the grid have flexbox activated by default.
+        </li>
+        <li>
+            You can change the width of a column (<code>.g-col</code>) with a modifier like <code>.as--x_y</code> where <code>x_y</code> is a fraction of the available width in the row (<code>.g-row</code>). For example, three equal columns would use three <code>.as--1_3</code>.
+        </li>
+        <li>
+            A row (<code>.g-row</code>) can have many columns (<code>.g-col</code>) even if the sum of the width is greater than 100%. The columns (<code>.g-col</code>) will be displayed into multiple lines. For example, six <code>.as--1_3</code> will display two lines of three columns.
+        </li>
+        <li>
+            A modifier for a column target all screen, but can target only specifics sizes by adding <code>@xx</code> at the end of the modifier where <code>xx</code> is the identifier of the media query (<code>sm, md, lg, xl, xxl</code>). For example, <code>.as--1_3@md</code> will only target medium screen and above (600px and more).
+        </li>
+    </ul>
+
+    <hr>
+
+    <h6>Technical informations</h6>
+    <ul>
+        <li>
+            Columns are display with <code>display: inline-block;</code>
+        </li>
+        <li>
+            Because of the <code>inline-block</code> on columns the <code>font-size</code> in rows is set to <code>0</code> to remove little space between columns. And the <code>font-size</code> is reset to the global <code>font-size</code> in columns.
+        </li>
+        <li>
+            The gutters (gaps between columns) are done with <code>padding-left</code> and <code>padding-bottom</code> in the columns (<code>.g-col</code>) and the rows (<code>.g-row</code>) prevent the horizontal shit with a negative <code>margin-left</code> and a negative <code>margin-bottom</code>.
+        </li>
+    </ul>
+
+    <hr>
+
+    <h4>Basic example</h4>
+
+    {% set sgLeftWidth = '1_1' %}
+    {% set sgLeftExtraClass = '' %}
+    {% set sgRightWidth = '1_1' %}
+    {% set sgRightExtraClass = ''%}
+
+    {% embed sgTplDoc %}
+        {% block sgCode %}
+<div class="g-row  [hide]as--debug[/hide]">
+    <div class="g-col as--1_2 as--1_4@xxl">
+        <div class="g-col__inner">
+            [...]Demo[/...]
+        </div>
+    </div>
+    <div class="g-col as--1_2 as--1_4@xxl">
+        <div class="g-col__inner">
+            [...]Demo<br>
+            Second line[/...]
+        </div>
+    </div>
+    <div class="g-col as--1_2 as--1_4@xxl">
+        <div class="g-col__inner">
+            [...]Demo[/...]
+        </div>
+    </div>
+    <div class="g-col as--1_2 as--1_4@xxl">
+        <div class="g-col__inner">
+            [...]Demo[/...]
+        </div>
+    </div>
+</div>
+        {% endblock %}
+    {% endembed %}
+
+</div>

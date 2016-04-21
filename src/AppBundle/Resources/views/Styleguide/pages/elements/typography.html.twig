@@ -1,0 +1,201 @@
+<p>
+    <code>a</code>, <code>ul</code>, <code>ol</code> and <code>h1, h2, ...</code> are not styled by default. You have to set a class like <code>{{ '<h1 class="e-h1">'|e }}</code> to enable styling. Or your can set a block as html with styling enable by adding <code>{{ '.e-content'|e }}</code> to the block (elements in this block must not have class attribute to be styled).
+</p>
+
+<h4>Headings</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<h1>h1. heading</h1>
+<h2>h2. heading</h2>
+<h3>h3. heading</h3>
+<h4>h4. heading</h4>
+<h5>h5. heading</h5>
+<h6>h6. heading</h6>
+
+<hr>
+
+<h1 class="[m]e-h1[/m]">h1. heading</h1>
+<h2 class="[m]e-h2[/m]">h2. heading</h2>
+<h3 class="[m]e-h3[/m]">h3. heading</h3>
+<h4 class="[m]e-h4[/m]">h4. heading</h4>
+<h5 class="[m]e-h5[/m]">h5. heading</h5>
+<h6 class="[m]e-h6[/m]">h6. heading</h6>
+    {% endblock %}
+{% endembed %}
+
+<h4>Headings with secondary text</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<h1 class="[m]e-h1[/m]">
+    h1. heading [m]<small>Secondary text</small>[/m]
+</h1>
+<h2 class="[m]e-h2[/m]">
+    h2. heading [m]<small>Secondary text</small>[/m]
+</h2>
+<h3 class="[m]e-h3[/m]">
+    h3. heading [m]<small>Secondary text</small>[/m]
+</h3>
+<h4 class="[m]e-h4[/m]">
+    h4. heading [m]<small>Secondary text</small>[/m]
+</h4>
+<h5 class="[m]e-h5[/m]">
+    h5. heading [m]<small>Secondary text</small>[/m]
+</h5>
+<h6 class="[m]e-h6[/m]">
+    h6. heading [m]<small>Secondary text</small>[/m]
+</h6>
+    {% endblock %}
+{% endembed %}
+
+<h4>Body copy</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+[m]<p>[/m]
+    Nullam quis <strong>risus eget urna mollis</strong> ornare vel eu leo. <em>Cum sociis natoque penatibus</em> et magnis dis parturient montes, <a class="e-a" href="#">nascetur</a> ridiculus mus. Nullam id dolor id nibh ultricies vehicula.
+[m]</p>[/m]
+<p>[...]Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec ullamcorper nulla non metus auctor fringilla.[/...]</p>
+<p>[...]Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.[/...]</p>
+    {% endblock %}
+{% endembed %}
+
+<h4>Inline text elements</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+[m]<a href="#">[/m]This is a link[m]</a>[/m] [hide]<br>[/hide]
+[m]<a class="e-a" href="#">[/m]This is a link[m]</a>[/m] [hide]<br>[/hide]
+<a href="#">
+    This is a <span class="[m]e-a[/m]">link</span>
+</a>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+        You can use the mark tag to [m]<mark>[/m]highlight[m]</mark>[/m] text.
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+        [m]<del>[/m]This line of text is meant to be treated as deleted text.[m]</del>[/m]
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+        [m]<small>[/m]This line of text is meant to be treated as fine print.[m]</small>[/m]
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+        [m]<strong>[/m]rendered as bold text[m]</strong>[/m]
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+        [m]<em>[/m]rendered as italicized text[m]</em>[/m]
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+        [m]<abbr title="attribute">[/m]attr[m]</abbr>[/m]
+    {% endblock %}
+{% endembed %}
+
+<h4>Addresses</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+[m]<address>[/m]
+    <strong>Twitter, Inc.</strong><br>
+    1355 Market Street, Suite 900<br>
+    San Francisco, CA 94103<br>
+    <abbr title="Phone">P:</abbr> (123) 456-7890
+[m]</address>[/m]
+
+[m]<address>[/m]
+    <strong>Full Name</strong><br>
+    <a href="mailto:#">first.last@example.com</a>
+[m]</address>[/m]
+    {% endblock %}
+{% endembed %}
+
+<h4>Blockquotes</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+[m]<blockquote>[/m]
+    <p>[...]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.[/...]</p>
+    [m]<footer>[/m]
+        Someone famous in
+        <cite title="Source Title">Source Title</cite>
+    [m]</footer>[/m]
+[m]</blockquote>[/m]
+
+<blockquote>[...]
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+<footer>
+    Someone famous in
+    <cite title="Source Title">Source Title</cite>
+    </footer>
+[/...]</blockquote>
+    {% endblock %}
+{% endembed %}
+
+<h4>Lists</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+[m]<ul class="e-ul">[/m]
+    <li>Lorem ipsum dolor sit amet</li>
+    <li>Consectetur adipiscing elit</li>
+    <li>Nulla volutpat aliquam velit
+        <ul class="e-ul">
+            <li>Phasellus iaculis neque</li>
+            <li>Purus sodales ultricies</li>
+            <li>Vestibulum laoreet porttitor sem</li>
+            <li>Ac tristique libero volutpat at</li>
+        </ul>
+    </li>
+    <li>Faucibus porta lacus fringilla vel</li>
+[m]</ul>[/m]
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+[m]<ol class="e-ol">[/m]
+    <li>Lorem ipsum dolor sit amet</li>
+    <li>Consectetur adipiscing elit</li>
+    <li>Nulla volutpat aliquam velit</li>
+    <li>Faucibus porta lacus fringilla vel</li>
+[m]</ol>[/m]
+    {% endblock %}
+{% endembed %}
+
+<h4>
+    Content example
+</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<div class="e-content">
+    <h1>Title</h1>
+    <p>[...]Lorem ipsum dolor sit amet, consectetur <a href="#">facilis fugit</a> adipisicing elit. Accusantium adipisci asperiores consequatur, culpa cupiditate debitis dignissimos eaque  illo iure nobis, obcaecati officia praesentium quisquam quod sint sit tenetur.[/...]</p>
+    <h3>Subtitle</h3>
+    <p>[...]Laborum neque odio tempora veniam voluptatibus.[/...]</p>
+    <ul>
+        <li><a href="#">Link 1</a></li>
+        <li><a href="#">Link 2</a></li>
+        <li><a href="#">Link 3</a></li>
+    </ul>
+</div>
+    {% endblock %}
+{% endembed %}

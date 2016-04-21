@@ -1,0 +1,53 @@
+<div class="c-drop-to-add">
+
+    <ui-dropdown ng-cloak
+                 class="c-drop-to-add__dropdown"
+                 ng-disabled="vm.itemsToAdd.length < 1 || vm.itemsToAdd == undefined">
+        <ui-dropdown-button
+                class="c-drop-to-add__dropdown-btn o-button as--block {{vm.btnClass != undefined ? vm.btnClass : ''}}">
+            <span class="text">{{ vm.btnText }}</span>
+        </ui-dropdown-button>
+        <ui-dropdown-menu class="c-drop-to-add__dropdown-menu">
+            <div class="c-drop-to-add__dropdown-search">
+                <span class="c-drop-to-add__dropdown-search-icon">
+                    <span class="fa fa-search"></span>
+                </span>
+                <input type="text"
+                       class="f-control c-drop-to-add__dropdown-search-input"
+                       placeholder="Search..."
+                       ng-model="vm.query">
+            </div> <!--/ c-drop-to-add__dropdown-search -->
+
+            <div class="c-drop-to-add__dropdown-items">
+                <div class="c-drop-to-add__dropdown-item"
+                     ng-repeat="item in vm.itemsToAdd | filter: {name: vm.query} track by item.id">
+                    <button class="c-drop-to-add__dropdown-item-btn"
+                            ng-click="vm.addItem(item.id, item.name)">
+                        {{item.name}}
+                    </button>
+                </div>
+                <div class="c-drop-to-add__dropdown-item"
+                     ng-if="(vm.itemsToAdd | filter:{name: vm.query}).length < 1">
+                    <span class="c-drop-to-add__dropdown-empty">
+                        No result for "{{vm.query}}"
+                    </span>
+                </div>
+            </div> <!--/ c-drop-to-add__dropdown-items -->
+        </ui-dropdown-menu>
+    </ui-dropdown>
+    
+    <div class="c-drop-to-add__list">
+        <div class="c-drop-to-add__list-item" ng-repeat="item in vm.itemsAdded track by item.id">
+            {{item.name}}
+
+            <button class="c-drop-to-add__list-item-remove" ng-click="vm.removeItem(item.id, item.name)">
+                &times;
+            </button>
+        </div>
+
+        <div class="c-drop-to-add__list-empty" ng-if="vm.itemsAdded.length < 1">
+            {{ vm.emptyText }}
+        </div>
+
+    </div>
+</div>

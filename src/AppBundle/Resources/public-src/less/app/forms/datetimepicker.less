@@ -1,0 +1,46 @@
+.datetimepicker {
+  color: #333;
+  background: none;
+  border: none;
+
+  .glyphicon {
+    font-style: normal;
+    font-family: FontAwesome;
+  }
+
+  .glyphicon-arrow-right:before {
+    content: @fa-var-arrow-right;
+  }
+
+  .glyphicon-arrow-left:before {
+    content: @fa-var-arrow-left;
+  }
+}
+
+.datetimepicker .active:hover,
+.datetimepicker .active:hover:hover,
+.datetimepicker .active.disabled:hover,
+.datetimepicker .active.disabled:hover:hover,
+.datetimepicker .active:active,
+.datetimepicker .active:hover:active,
+.datetimepicker .active.disabled:active,
+.datetimepicker .active.disabled:hover:active,
+.datetimepicker .active.active,
+.datetimepicker .active:hover.active,
+.datetimepicker .active.disabled.active,
+.datetimepicker .active.disabled:hover.active,
+.datetimepicker .active.disabled,
+.datetimepicker .active:hover.disabled,
+.datetimepicker .active.disabled.disabled,
+.datetimepicker .active.disabled:hover.disabled,
+.datetimepicker td.active[disabled],
+.datetimepicker td.active:hover[disabled],
+.datetimepicker td.active.disabled[disabled],
+.datetimepicker td.active.disabled:hover[disabled],
+.datetimepicker span.active[disabled],
+.datetimepicker span.active:hover[disabled],
+.datetimepicker span.active.disabled[disabled],
+.datetimepicker span.active.disabled:hover[disabled] {
+  color: #fff;
+  background: @color-success;
+}

@@ -1,0 +1,29 @@
+<div class="c-click-confirm-modal__header">
+    <button type="button"
+            class="c-click-confirm-modal__close"
+            ng-click="$dismiss()"
+            aria-hidden="true">
+        &times;
+    </button>
+    <h4 class="c-click-confirm-modal__title">
+        {{ vm.title }}
+    </h4>
+</div>
+<div class="c-click-confirm-modal__body" ng-if="vm.message != ''">
+    {{ vm.message }}
+</div>
+<div class="c-click-confirm-modal__footer">
+    <button class="o-button c-click-confirm-modal__btn-cancel"
+            ng-class="vm.btnCancelExtraClass"
+            ng-click="$dismiss()">
+        {{vm.btnCancelText}}
+    </button>
+    <button class="o-button c-click-confirm-modal__btn-confirm"
+            ng-class="vm.btnConfirmExtraClass"
+            ng-click="$close()">
+        {{vm.btnConfirmText}}
+    </button>
+</div>
+
+
+

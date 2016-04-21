@@ -1,0 +1,43 @@
+.u-hide-show();
+
+@media only screen and (min-width: @mq-sm) {
+  .u-hide-show(~'\@sm');
+}
+
+@media only screen and (min-width: @mq-md) {
+  .u-hide-show(~'\@md');
+}
+
+@media only screen and (min-width: @mq-lg) {
+  .u-hide-show(~'\@lg');
+}
+
+@media only screen and (min-width: @mq-xl) {
+  .u-hide-show(~'\@xl');
+}
+
+@media only screen and (min-width: @mq-xxl) {
+  .u-hide-show(~'\@xxl');
+}
+
+.u-hide-show (@suffix: ~'') {
+  .u-hide@{suffix} {
+    display: none !important;
+  }
+
+  .u-show@{suffix} {
+    display: inline-block !important;
+  }
+
+  .u-show-block@{suffix} {
+    display: block !important;
+  }
+
+  .u-show-inline@{suffix} {
+    display: inline !important;
+  }
+
+  .u-show-flex@{suffix} {
+    display: flex !important;
+  }
+}

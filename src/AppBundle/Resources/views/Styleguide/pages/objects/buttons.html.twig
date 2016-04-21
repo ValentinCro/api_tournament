@@ -1,0 +1,280 @@
+<div class="e-content">
+    <p>
+        As a best practice, we highly recommend using the <code>{{ '<button>'|e }}</code> element instead of  <code>{{ '<input>'|e }}</code> element whenever possible to ensure matching cross-browser rendering.
+    </p>
+</div>
+
+{% set sgLeftWidth = '1_4' %}
+{% set sgRightWidth = '3_4' %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<a class="[m]o-button[/m]" href="#">Link</a>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button class="[m]o-button[/m]" type="submit">Button</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<input class="[m]o-button[/m]" type="button" value="Input">
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<input class="[m]o-button[/m]" type="submit" value="Submit">
+    {% endblock %}
+{% endembed %}
+
+<h4>Sizes</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--lg[/m]">Large button</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button">Default button</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--sm[/m]">Small button</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--xs[/m]">Extra small button</button>
+    {% endblock %}
+{% endembed %}
+
+<h4>Full width</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--block[/m]">Block button</button>
+    {% endblock %}
+{% endembed %}
+
+<h4>Colors</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button">Default</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--primary[/m]">Primary</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--success[/m]">Success</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--info[/m]">Info</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--warning[/m]">Warning</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--danger[/m]">Danger</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--soft[/m]">Soft</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--link[/m]">Link</button>
+    {% endblock %}
+{% endembed %}
+
+<h4>Icons</h4>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--edit[/m]">Edit</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--add[/m]">Add</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+        <button type="button" class="o-button [m]as--check[/m]">Check</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--remove[/m]">Remove</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--upload[/m]">Upload</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--copy[/m]">Copy</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--next[/m]">Next</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<button type="button" class="o-button [m]as--prev[/m]">Prev</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+        <button type="button" class="o-button [m]as--upgrade[/m]">Upgrade</button>
+    {% endblock %}
+{% endembed %}
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+        <button type="button" class="o-button [m]as--undo[/m]">Undo</button>
+    {% endblock %}
+{% endembed %}
+
+<h3 class="e-h3">Disabled state</h3>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<p>
+    <!-- Default disabled -->
+    <button type="button" class="o-button" [m]disabled[/m]>Default</button>
+    <button type="button" class="o-button [m]as--disabled[/m]">Default</button>
+</p>
+<p>
+    <!-- Primary disabled -->
+    <button type="button" class="o-button as--primary" [m]disabled[/m]>Primary</button>
+    <button type="button" class="o-button as--primary [m]as--disabled[/m]">Primary</button>
+</p>
+<p>
+    <!-- Success disabled -->
+    <button type="button" class="o-button as--success" [m]disabled[/m]>Success</button>
+    <button type="button" class="o-button as--success [m]as--disabled[/m]">Success</button>
+</p>
+<p>
+    <!-- Info disabled -->
+    <button type="button" class="o-button as--info" [m]disabled[/m]>Info</button>
+    <button type="button" class="o-button as--info [m]as--disabled[/m]">Info</button>
+</p>
+<p>
+    <!-- Warning disabled -->
+    <button type="button" class="o-button as--warning" [m]disabled[/m]>Warning</button>
+    <button type="button" class="o-button as--warning [m]as--disabled[/m]">Warning</button>
+</p>
+<p>
+    <!-- Danger disabled -->
+    <button type="button" class="o-button as--danger" [m]disabled[/m]>Danger</button>
+    <button type="button" class="o-button as--danger [m]as--disabled[/m]">Danger</button>
+</p>
+<p>
+    <!-- Soft disabled -->
+    <button type="button" class="o-button as--soft" [m]disabled[/m]>Soft</button>
+    <button type="button" class="o-button as--soft [m]as--disabled[/m]">Soft</button>
+</p>
+<p>
+    <!-- Link disabled -->
+    <button type="button" class="o-button as--link" [m]disabled[/m]>Link</button>
+    <button type="button" class="o-button as--link [m]as--disabled[/m]">Link</button>
+</p>
+    {% endblock %}
+{% endembed %}
+
+<h3 class="e-h3">Loading state</h3>
+
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<p>
+    <!-- Default loading -->
+    <button type="button" class="o-button [m]as--loading[/m]">
+        [m]<span class="o-button__loader"></span>[/m] Default
+    </button>
+</p>
+<p>
+    <!-- Primary loading -->
+    <button type="button" class="o-button as--primary [m]as--loading[/m]">
+        [m]<span class="o-button__loader"></span>[/m] Primary
+    </button>
+</p>
+<p>
+    <!-- Success loading -->
+    <button type="button" class="o-button as--success [m]as--loading[/m]">
+        [m]<span class="o-button__loader"></span>[/m] Success
+    </button>
+</p>
+<p>
+    <!-- Info loading -->
+    <button type="button" class="o-button as--info [m]as--loading[/m]">
+        [m]<span class="o-button__loader"></span>[/m] Info
+    </button>
+</p>
+<p>
+    <!-- Warning loading -->
+    <button type="button" class="o-button as--warning [m]as--loading[/m]">
+        [m]<span class="o-button__loader"></span>[/m] Warning
+    </button>
+</p>
+<p>
+    <!-- Danger loading -->
+    <button type="button" class="o-button as--danger [m]as--loading[/m]">
+        [m]<span class="o-button__loader"></span>[/m] Danger
+    </button>
+</p>
+<p>
+    <!-- Soft loading -->
+    <button type="button" class="o-button as--soft [m]as--loading[/m]">
+        [m]<span class="o-button__loader"></span>[/m] Soft
+    </button>
+</p>
+<p>
+    <!-- Link loading -->
+    <button type="button" class="o-button as--link [m]as--loading[/m]">
+        [m]<span class="o-button__loader"></span>[/m] Link
+    </button>
+</p>
+    {% endblock %}
+{% endembed %}

@@ -1,0 +1,123 @@
+.f-control {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: @font-size-base;
+  line-height: 1.4;
+  color: #555;
+  background-color: #fff;
+  background-image: none; // Reset unusual Firefox-on-Android default style
+  border: 1px solid #ddd;
+  border-radius: 0; // Note: This has no effect on <select>s in some browsers, due to the limited stylability of <select>s in CSS.
+  box-shadow: none;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+  // Customize the `:focus` state to imitate native WebKit styles.
+  &:focus {
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px fade(#66afe9, 60%);
+  }
+
+  // Placeholder
+  &::-moz-placeholder {
+    color: #999;
+    opacity: 1; // Override Firefox's unusual default opacity
+  }
+  &:-ms-input-placeholder { color: #999; } // Internet Explorer 10+
+  &::-webkit-input-placeholder  { color: #999; } // Safari and Chrome
+
+  // Sizes
+  // -------------------------
+  &.as--tiny {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+
+  // Readonly
+  // -------------------------
+  &[readonly],
+  &.as--readonly {
+    cursor: default;
+    background-color: #eee;
+    opacity: 1; // iOS fix for unreadable disabled content
+    box-shadow: none;
+  }
+
+  // Disabled
+  // -------------------------
+  &[disabled],
+  &.as--disabled {
+    cursor: not-allowed;
+    background-color: #eee;
+    opacity: 1; // iOS fix for unreadable disabled content
+    box-shadow: none;
+  }
+
+  textarea& {
+    height: auto;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 66px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  select&:not([multiple]) {
+    overflow: hidden;
+    margin: 0;
+    padding: 8px 30px 8px 12px;
+    min-width: 40px;
+    font-size: inherit;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-radius: 0;
+    background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAUCAMAAACzvE1FAAAADFBMVEUzMzMzMzMzMzMzMzMKAG/3AAAAA3RSTlMAf4C/aSLHAAAAPElEQVR42q3NMQ4AIAgEQTn//2cLdRKppSGzBYwzVXvznNWs8C58CiussPJj8h6NwgorrKRdTvuV9v16Afn0AYFOB7aYAAAAAElFTkSuQmCC) no-repeat right .75rem center;
+    background-size: 8px 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+  }
+
+  select&[multiple] {
+    overflow: auto;
+  }
+
+  // As code
+  // -------------------------
+  &.as--code {
+    font-size: (@font-size-base - 1);
+    font-family: @font-monospace;
+
+    &[readonly],
+    &.as--readonly,
+    &[disabled],
+    &.as--disabled {
+      color: #fff;
+      background-color: #333;
+      border: 1px solid #222;
+    }
+  }
+
+  // Feedback colors
+  // -------------------------
+  .f-control-validation (success, @color-success);
+  .f-control-validation (info, @color-info);
+  .f-control-validation (warning, @color-warning);
+  .f-control-validation (danger, @color-danger);
+
+  .f-control-validation (@state, @color) {
+    &.as--@{state},
+    .f-group.as--@{state} & {
+      border-color: @color;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075); // Redeclare so transitions work
+
+      &:focus {
+        border-color: darken(@color, 10%);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px lighten(@color, 20%);
+      }
+    }
+  }
+}

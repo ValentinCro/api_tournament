@@ -1,0 +1,31 @@
+.l-topbar {
+  z-index: 3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: @topbar-height;
+
+  color: #444;
+  background: @color-topbar;
+  padding: 5px 15px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, .1);
+
+  &.as--login {
+    text-align: center;
+  }
+
+  &__logo {
+    font-family: @font-light;
+    color: #fff;
+    font-size: 26px;
+    vertical-align: middle;
+    padding: 0;
+    text-align: center;
+    outline: none !important;
+
+    img {
+      width: 110px;
+    }
+  }
+}

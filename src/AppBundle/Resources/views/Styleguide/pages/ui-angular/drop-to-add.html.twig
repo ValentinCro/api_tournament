@@ -1,0 +1,33 @@
+{% embed sgTplDoc %}
+    {% block sgCode %}
+<!-- js -->
+[hide]<div ng-init="[/hide]vm.dropToAdd_toAdd = [
+    {
+        id: 1,
+        name: 'Item 1'
+    },
+    {
+        id: 3,
+        name: 'Item 3'
+    }
+][hide]"
+></div>[/hide]
+
+[hide]
+<div ng-init="[/hide]vm.dropToAdd_added = [
+    {
+        id: 2,
+        name: 'Item 2'
+    }
+][hide]"
+></div>[/hide]
+
+<!-- html -->
+<ui-drop-to-add
+    btn-text="+ Add an item"
+    btn-class="as--primary"
+    empty-text="No item"
+    items-to-add="vm.dropToAdd_toAdd"
+    items-added="vm.dropToAdd_added"/>
+    {% endblock %}
+{% endembed %}
