@@ -17,9 +17,7 @@
             controllerAs:     'vm',
             link:             link,
             restrict:         'E',
-            scope:            {
-                view: '@'
-            }
+            scope:            {}
         };
         return directive;
 
@@ -28,15 +26,29 @@
         }
     }
 
-    TopbarController.$inject = [];
+    TopbarController.$inject = ['$rootScope', 'UserService'];
 
     /* @ngInject */
-    function TopbarController() {
+    function TopbarController($rootScope, UserService) {
         var vm = this;
+
+        vm.user = {};
+        vm.loggedIn = false;
 
         activate();
 
         function activate () {
+            initUser();
+            $rootScope.$on('userUpdated', initUser);
+        }
+
+        function initUser () {
+            vm.loggedIn = false;
+            vm.user = UserService.getCurrentUser();
+
+            if (vm.user.token) {
+                vm.loggedIn = true;
+            }
         }
     }
 

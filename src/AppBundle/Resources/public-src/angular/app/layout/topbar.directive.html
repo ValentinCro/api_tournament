@@ -1,13 +1,13 @@
 <div class="l-topbar {{vm.view ? 'as--' + vm.view : ''}}">
     <!-- Login topbar -->
-    <div ng-if="vm.view == 'login'">
+    <div ng-if="!vm.loggedIn">
         <div class="l-topbar__logo">
             <img ng-src="/bundles/app/assets/app/images/logo-manager.svg" alt="">
         </div>
     </div>
 
     <!-- Index topbar -->
-    <div ng-if="vm.view == 'index'">
+    <div ng-if="vm.loggedIn">
         <div class="g-row as--gutter-5@sm as--gutter-15@md as--v-align-center as--cols-w-auto@md">
             <div class="g-col as--2_7 as--1_8@md as--w-auto@lg">
                 <a class="l-topbar__logo">
@@ -24,6 +24,9 @@
                     <a class="o-button as--sm">
                         <i class="fa fa-cog u-mr-5"></i>
                         App settings
+                    </a>
+                    <a ui-sref="login" class="o-button as--link" ui-tooltip="Log out" ui-tooltip-options="{position: 'bottom center'}">
+                        <i class="fa fa-power-off"></i>
                     </a>
                 </div>
             </div> <!--/ g-col -->

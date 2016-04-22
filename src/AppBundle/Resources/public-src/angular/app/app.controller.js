@@ -5,10 +5,10 @@
         .module('app')
         .controller('AppController', AppController);
 
-    AppController.$inject = ['$rootScope', '$anchorScroll'];
+    AppController.$inject = [];
 
     /* @ngInject */
-    function AppController($rootScope, $anchorScroll) {
+    function AppController() {
         var vm = this;
 
         activate();
@@ -16,18 +16,7 @@
         ////////////////
 
         function activate() {
-            /* ------------------------- *\
-                Set default yOffset for $anchorScroll
-                because of topbar offset
-            \* ------------------------- */
-            $anchorScroll.yOffset = 60;
 
-            init();
-            $rootScope.$on('initView', init);
-        }
-
-        function init (e, params) {
-            
         }
     }
 

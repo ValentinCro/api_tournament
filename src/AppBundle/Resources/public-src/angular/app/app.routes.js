@@ -4,16 +4,28 @@
     angular
         .module('app')
         .config(configRoutes)
-        .run(runAfterRouteChange);
+        .run(init);
 
     /* ------------------------- *\
-        After each route change
+        Init
     \* ------------------------- */
-    runAfterRouteChange.$inject = ['$rootScope', '$stateParams'];
+    init.$inject = ['$rootScope', '$cookies', '$state', 'AuthenticationService'];
 
-    function runAfterRouteChange ($rootScope, $stateParams) {
+    function init ($rootScope, $cookies, $state, AuthenticationService) {
+        // keep user logged in after page refresh
+        var user = $rootScope.user || $cookies.getObject('user') || {};
+        if (user.username && user.token) {
+            AuthenticationService.SetCredentials(user.username, user.token);
+        }
+
         $rootScope.$on( "$stateChangeSuccess", function(event, next, current) {
-            $rootScope.$broadcast('initView', $stateParams);
+            // redirect to login page if not logged in and trying to access a restricted page
+            var isLoginPage = $state.is('login');
+            user = $rootScope.user || $cookies.getObject('user') || {};
+
+            if (!isLoginPage && !user.token) {
+                $state.go('login');
+            }
         });
     }
 
@@ -27,6 +39,12 @@
         $urlRouterProvider.otherwise("/dashboard");
 
         $stateProvider
+            .state('login', {
+                url: "/login",
+                templateUrl: "/bundles/app/html/app/login/login.html",
+                controller: 'LoginController',
+                controllerAs: 'vm'
+            })
             .state('dashboard', {
                 url: "/dashboard",
                 templateUrl: "/bundles/app/html/app/dashboard/dashboard.html",

@@ -55,12 +55,7 @@
         activate();
 
         function activate () {
-
-            $scope.$watch('vm.uiTooltip', function () {
-                vm.reload();
-            });
-
-            $scope.$watch('vm.uiTooltipOptions', function () {
+            $scope.$watchGroup(['vm.uiTooltip', 'vm.uiTooltipOptions'], function () {
                 vm.reload();
             });
         }

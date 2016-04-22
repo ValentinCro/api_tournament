@@ -57,6 +57,7 @@ sources.js = {
       sources.roots.bower + '/jquery/dist/jquery.min.js',
       sources.roots.bower + '/moment/min/moment.min.js',
       sources.roots.bower + '/angular/angular.min.js',
+      sources.roots.bower + '/angular-cookies/angular-cookies.min.js',
       sources.roots.bower + '/angular-ui-router/release/angular-ui-router.min.js',
       sources.roots.bower + '/angular-ui-validate/dist/validate.js',
       sources.roots.bower + '/angular-animate/angular-animate.min.js',

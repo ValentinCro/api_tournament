@@ -1,0 +1,35 @@
+<div class="l-container l-page">
+
+
+    <div class="g-row as--h-align-center">
+        <div class="g-col as--1_3@lg">
+            <form name="form" ng-submit="vm.login(form)" class="o-paper-sheet">
+                <h1 class="u-text-center e-h2">
+                    <i class="fa fa-lock u-mr-5"></i> Login
+                </h1>
+
+                <div class="o-alert as--danger as--colorful u-text-center" ng-if="form.$submitted && form.$error.badCredentials">
+                    <i class="fa fa-warning u-mr-5"></i> Bad credentials
+                </div>
+
+                <div class="f-group" ng-class="{ 'as--danger': form.$submitted && (form.username.$error.required || form.$error.badCredentials) }">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" class="f-control" ng-model="vm.username" required>
+                    <span class="f-help as--feedback-danger" ng-if="form.username.$error.required">Username is required</span>
+                </div>
+                <div class="f-group" ng-class="{ 'as--danger': form.$submitted && (form.password.$error.required || form.$error.badCredentials) }">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="f-control" ng-model="vm.password" required>
+                    <span class="f-help as--feedback-danger" ng-if="form.password.$error.required">Password is required</span>
+                </div>
+                <div class="f-group">
+                    <button type="submit" class="o-button as--primary as--lg as--block" ng-class="{'as--loading': vm.isLoading}">
+                        <span class="o-button__loader"></span>
+                        Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
