@@ -2,9 +2,13 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Dto\ConstraintViolationError;
 use AppBundle\Dto\Product as ProductDto;
+use AppBundle\Exception\ConstraintViolationException;
 use AppBundle\Exception\ProductNotFoundException;
+use JMS\Serializer\Serializer;
 use Symfony\Bridge\Monolog\Logger;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
@@ -25,11 +29,23 @@ class ProductService
      */
     protected $productRepository;
 
-    public function __construct(Logger $logger, EntityManager $entityManager)
+    /**
+     * @var ValidatorInterface
+     */
+    protected $validator;
+
+    /**
+     * @var Serializer
+     */
+    protected $serializer;
+
+    public function __construct(Logger $logger, EntityManager $entityManager, ValidatorInterface $validator, Serializer $serializer)
     {
         $this->logger = $logger;
         $this->entiryManager = $entityManager;
         $this->productRepository = $entityManager->getRepository('AppBundle:Product');
+        $this->validator = $validator;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -54,9 +70,17 @@ class ProductService
 
     /**
      * @param ProductDto $productDto
+     * @throws ConstraintViolationException
      */
     public function createProduct(ProductDto $productDto) {
         $productEntity = $productDto->toEntity();
+
+        $constraintViolationList = $this->validator->validate($productEntity);
+        if ($constraintViolationList->count() > 0) {
+            $constraintViolationDtoList = ConstraintViolationError::fromConstraintViolationList($constraintViolationList);
+            throw ConstraintViolationException::fromConstraintViolationErrorList($constraintViolationDtoList, $this->serializer);
+        }
+
         $this->entiryManager->persist($productEntity);
         $this->entiryManager->flush();
         $productDto->setId($productEntity->getId());
@@ -75,10 +99,18 @@ class ProductService
     /**
      * @param $id
      * @param ProductDto $product
+     * @throws ConstraintViolationException
      */
     public function updateProduct($id, ProductDto $product) {
         $product->setId($id);
         $productEntity = $product->toEntity();
+
+        $constraintViolationList = $this->validator->validate($productEntity);
+        if ($constraintViolationList->count() > 0) {
+            $constraintViolationDtoList = ConstraintViolationError::fromConstraintViolationList($constraintViolationList);
+            throw ConstraintViolationException::fromConstraintViolationErrorList($constraintViolationDtoList, $this->serializer);
+        }
+
         $this->entiryManager->merge($productEntity);
         $this->entiryManager->flush();
     }
