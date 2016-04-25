@@ -13,9 +13,13 @@
 
 <body id="app" ng-app="app" ng-controller="AppController as global" class="">
 
-    <topbar user="global.user"></topbar>
+    <topbar></topbar>
 
-    <div class="l-main-content" ui-view autoscroll>
+    <div class="l-main-content" ui-view autoscroll ng-class="{'as--loading': global.stateLoading}">
+
+    </div>
+    <div class="l-main-content-loader" ng-if="global.stateLoading">
+        <i class="fa fa-spinner fa-spin"></i> Loading...
     </div>
 
     <div class="l-footer">

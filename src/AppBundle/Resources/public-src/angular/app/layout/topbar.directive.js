@@ -22,7 +22,7 @@
         return directive;
 
         function link(scope, element, attrs) {
-
+            
         }
     }
 
@@ -34,12 +34,16 @@
 
         vm.user = {};
         vm.loggedIn = false;
+        vm.openMobileNav = openMobileNav;
+        vm.closeMobileNav = closeMobileNav;
+        vm.toggleMobileNav = toggleMobileNav;
 
         activate();
 
         function activate () {
             initUser();
             $rootScope.$on('userUpdated', initUser);
+            $rootScope.$on('$stateChangeStart', closeMobileNav);
         }
 
         function initUser () {
@@ -49,6 +53,18 @@
             if (vm.user.token) {
                 vm.loggedIn = true;
             }
+        }
+
+        function openMobileNav () {
+            vm.isMobileNavOpen = true;
+        }
+
+        function closeMobileNav () {
+            vm.isMobileNavOpen = false;
+        }
+
+        function toggleMobileNav () {
+            vm.isMobileNavOpen = !vm.isMobileNavOpen;
         }
     }
 

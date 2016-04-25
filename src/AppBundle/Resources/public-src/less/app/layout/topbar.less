@@ -1,5 +1,5 @@
 .l-topbar {
-  z-index: 3;
+  z-index: 4;
   position: fixed;
   top: 0;
   left: 0;
@@ -26,6 +26,39 @@
 
     img {
       width: 110px;
+    }
+  }
+
+  &__menu {
+    li {
+      display: inline-block;
+    }
+  }
+
+  &__menu-link {
+    .o-button-base();
+    .o-button-variant(@color-primary, transparent, transparent);
+
+    &:not(.as--active):hover {
+      background: rgba(0, 0, 0, .05);
+    }
+
+    &.as--active {
+      .o-button-variant(#fff, @color-primary, @color-primary);
+    }
+  }
+
+  &__username {
+    display: inline-block;
+    font-size: 12px;
+    padding: 5px 10px;
+    vertical-align: middle;
+    color: #aaa;
+    font-family: @font-light;
+
+    strong {
+      color: #444;
+      font-family: @font-bold;
     }
   }
 }

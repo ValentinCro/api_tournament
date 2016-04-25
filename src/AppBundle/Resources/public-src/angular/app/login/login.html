@@ -14,12 +14,28 @@
 
                 <div class="f-group" ng-class="{ 'as--danger': form.$submitted && (form.username.$error.required || form.$error.badCredentials) }">
                     <label for="username">Username</label>
-                    <input type="text" name="username" id="username" class="f-control" ng-model="vm.username" required>
+                    <input type="text"
+                           name="username"
+                           id="username"
+                           class="f-control"
+                           ng-model="vm.username"
+                           autocorrect="off"
+                           autocapitalize="off"
+                           required>
                     <span class="f-help as--feedback-danger" ng-if="form.username.$error.required">Username is required</span>
                 </div>
                 <div class="f-group" ng-class="{ 'as--danger': form.$submitted && (form.password.$error.required || form.$error.badCredentials) }">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" class="f-control" ng-model="vm.password" required>
+                    <ui-input-password>
+                        <input type="password"
+                               name="password"
+                               id="password"
+                               class="f-control"
+                               ng-model="vm.password"
+                               autocorrect="off"
+                               autocapitalize="off"
+                               required>
+                    </ui-input-password>
                     <span class="f-help as--feedback-danger" ng-if="form.password.$error.required">Password is required</span>
                 </div>
                 <div class="f-group">

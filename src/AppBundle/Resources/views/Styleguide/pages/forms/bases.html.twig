@@ -29,11 +29,11 @@
 <form class="[m]g-row[/m]">
     <div class="[m]f-group g-col as--1_2@sm[/m]">
         <label for="[...]exampleInputEmail1[/...]">Email address</label>
-        <input type="email" class="f-control" id="[...]exampleInputEmail1[/...]" placeholder="Email">
+        <input type="email" class="f-control" id="[...]exampleInputEmail1[/...]" autocorrect="off" autocapitalize="off">
     </div>
     <div class="[m]f-group g-col as--1_2@sm[/m]">
         <label for="[...]exampleInputPassword1[/...]">Password</label>
-        <input type="password" class="f-control" id="[...]exampleInputPassword1[/...]" placeholder="Password">
+        <input type="password" class="f-control" id="[...]exampleInputPassword1[/...]" autocorrect="off" autocapitalize="off">
     </div>
     <div class="[m]f-group g-col[/m]">
         <label for="[...]exampleInputFile[/...]">File input</label>
@@ -80,7 +80,7 @@
     {% block sgCode %}
 <div class="f-group">
     <label for="[...]exampleBasic200[/...]">Input email</label>
-    [m]<input type="email" class="f-control" id="[...]exampleBasic200[/...]" placeholder="[...]name@example.com[/...]">[/m]
+    [m]<input type="email" class="f-control" id="[...]exampleBasic200[/...]" placeholder="[...]name@example.com[/...]" autocorrect="off" autocapitalize="off">[/m]
 </div>
     {% endblock %}
 {% endembed %}
@@ -90,7 +90,7 @@
 <div class="f-group">
     <label for="[...]exampleBasic300[/...]">Input password</label>
     [m]<ui-input-password>
-        <input type="password" class="f-control" id="[...]exampleBasic300[/...]">
+        <input type="password" class="f-control" id="[...]exampleBasic300[/...]" autocorrect="off" autocapitalize="off">
     </ui-input-password>[/m]
 </div>
     {% endblock %}

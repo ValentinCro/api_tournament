@@ -5,8 +5,8 @@
         .module('app')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout'];
-    function AuthenticationService($http, $cookies, $rootScope, $timeout) {
+    AuthenticationService.$inject = ['$http', '$q', '$log', '$cookies', '$rootScope', '$timeout'];
+    function AuthenticationService($http, $q, $log, $cookies, $rootScope, $timeout) {
         var service = {};
 
         service.Login = Login;
@@ -16,17 +16,19 @@
         return service;
 
         function Login(username, password, callback) {
+            var defer = $q.defer();
 
             $http.post('/api/login_check', '_username=' + username + '&_password=' + password, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
                 .then(function (response) {
-                    response.success = true;
                     service.SetCredentials(username, response.data.token);
-                    callback(response);
+                    defer.resolve(response);
                 })
                 .catch(function (response) {
-                    response.success = false;
-                    callback(response);
+                    $log.warn(response);
+                    defer.reject(response);
                 });
+
+            return defer.promise;
         }
 
         function SetCredentials(username, token) {

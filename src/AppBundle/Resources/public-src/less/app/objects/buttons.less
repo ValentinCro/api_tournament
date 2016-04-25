@@ -1,4 +1,8 @@
 .o-button {
+  .o-button-base ();
+}
+
+.o-button-base () {
   display: inline-block;
   margin-bottom: 0;
   font-weight: 400;
@@ -24,8 +28,7 @@
     }
   }
 
-  &:active,
-  &.active {
+  &:active {
     outline: 0;
     background-image: none;
   }
@@ -129,7 +132,7 @@
     .o-button-variant(#fff; @color-danger; @color-danger);
   }
   &.as--soft {
-    .o-button-variant(#fff; @color-soft; @color-soft)
+    .o-button-variant(#333; @color-soft; @color-soft)
   }
 }
 

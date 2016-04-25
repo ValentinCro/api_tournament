@@ -1,4 +1,4 @@
-<div class="l-topbar {{vm.view ? 'as--' + vm.view : ''}}">
+<div class="l-topbar">
     <!-- Login topbar -->
     <div ng-if="!vm.loggedIn">
         <div class="l-topbar__logo">
@@ -6,30 +6,98 @@
         </div>
     </div>
 
-    <!-- Index topbar -->
+    <!-- Connected topbar -->
     <div ng-if="vm.loggedIn">
         <div class="g-row as--gutter-5@sm as--gutter-15@md as--v-align-center as--cols-w-auto@md">
-            <div class="g-col as--2_7 as--1_8@md as--w-auto@lg">
-                <a class="l-topbar__logo">
-                    <img ng-src="/bundles/app/assets/app/images/logo-manager.svg" alt="">
-                </a>
-            </div> <!--/ g-col -->
-            <div class="g-col as--4_7 as--w-auto-full@md">
-                <div class="g-col__inner u-text-left">
-                    TODO: Nav
+            <div class="g-col as--w-auto u-hide@xl">
+                <div class="g-col__inner">
+                    <button type="button" ng-click="vm.toggleMobileNav()" class="o-button as--primary as--sm">
+                        <i class="fa fa-bars"></i>
+                    </button>
                 </div>
             </div> <!--/ g-col -->
-            <div class="g-col as--1_7">
+            <div class="g-col as--w-auto">
+                <div class="g-col__inner">
+                    <a ui-sref="dashboard()" class="l-topbar__logo">
+                        <img ng-src="/bundles/app/assets/app/images/logo-manager.svg" alt="">
+                    </a>
+                </div>
+            </div> <!--/ g-col -->
+            <div class="g-col as--w-auto-full u-hide u-show-flex@xl">
+                <div class="g-col__inner u-text-left">
+                    <ul class="l-topbar__menu">
+                        <li>
+                            <a ui-sref="dashboard" class="l-topbar__menu-link" ui-sref-active="as--active">
+                                <i class="fa fa-heartbeat u-mr-5"></i> Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a ui-sref="products" class="l-topbar__menu-link" ui-sref-active="as--active">
+                                <i class="fa fa-th u-mr-5"></i> Products
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div> <!--/ g-col -->
+            <div class="g-col u-hide u-show-flex@xl">
                 <div class="g-col__inner u-text-right">
-                    <a class="o-button as--sm">
+                    <div class="l-topbar__username">
+                        Connected as <strong>{{ vm.user.username }}</strong>
+                    </div>
+
+                    <a ui-sref="settings" class="o-button as--soft as--sm">
                         <i class="fa fa-cog u-mr-5"></i>
                         App settings
                     </a>
-                    <a ui-sref="login" class="o-button as--link" ui-tooltip="Log out" ui-tooltip-options="{position: 'bottom center'}">
+                    <a ui-sref="login" class="o-button as--sm as--link" ui-tooltip="Log out" ui-tooltip-options="{position: 'bottom center'}">
                         <i class="fa fa-power-off"></i>
                     </a>
                 </div>
             </div> <!--/ g-col -->
         </div>
     </div>
+
+    <!-- Mobile Nav -->
+    <div ng-if="vm.loggedIn" class="l-mobile-nav u-hide@xl" ng-class="{'as--open': vm.isMobileNavOpen}">
+        <div class="l-mobile-nav__header">
+            <div class="l-mobile-nav__title">
+                MyApp
+            </div>
+            <button type="button" ng-click="vm.closeMobileNav()" class="l-mobile-nav__close">
+                &times;
+            </button>
+        </div>
+
+        <div class="l-mobile-nav__content">
+            <ul class="l-mobile-nav__menu">
+                <li>
+                    <a ui-sref="dashboard" class="l-mobile-nav__menu-link" ui-sref-active="as--active">
+                        <i class="fa fa-heartbeat u-mr-5"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="products" class="l-mobile-nav__menu-link" ui-sref-active="as--active">
+                        <i class="fa fa-th u-mr-5"></i> Products
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="l-mobile-nav__footer">
+            <div class="l-mobile-nav__username">
+                Connected as <strong>{{ vm.user.username }}</strong>
+            </div>
+
+            <a ui-sref="login" class="o-button as--sm as--link l-mobile-nav__logout">
+                <i class="fa fa-power-off"></i> Log out
+            </a>
+
+            <a ui-sref="settings" class="o-button as--soft as--sm l-mobile-nav__settings">
+                <i class="fa fa-cog u-mr-5"></i>
+                App settings
+            </a>
+        </div>
+    </div>
+
+
 </div>

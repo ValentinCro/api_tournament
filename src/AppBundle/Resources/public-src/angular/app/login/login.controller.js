@@ -26,17 +26,15 @@
 
             vm.isLoading = true;
 
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
-                vm.isLoading = false;
-
-                // Success
-                if (response.success) {
+            AuthenticationService.Login(vm.username, vm.password).
+                then(function () {
+                    vm.isLoading = false;
                     $location.path('/');
-                    return;
-                }
-
-                form.$setValidity('badCredentials', false);
-            });
+                })
+                .catch(function () {
+                    vm.isLoading = false;
+                    form.$setValidity('badCredentials', false);
+                });
         };
     }
 

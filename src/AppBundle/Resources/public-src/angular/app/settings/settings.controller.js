@@ -3,12 +3,12 @@
 
     angular
         .module('app')
-        .controller('DashboardController', DashboardController);
+        .controller('SettingsController', SettingsController);
 
-    DashboardController.$inject = ['$http'];
+    SettingsController.$inject = [];
 
     /* @ngInject */
-    function DashboardController($http) {
+    function SettingsController() {
         var vm = this;
 
         activate();
@@ -16,7 +16,7 @@
         ////////////////
 
         function activate() {
-            
+
         }
     }
 
