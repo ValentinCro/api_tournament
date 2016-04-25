@@ -101,7 +101,10 @@
                 return;
             }
 
-            vm.tooltip.destroy();
+            try {
+                vm.tooltip.destroy();
+            }
+            catch (e) {}
         }
 
         function reload () {
