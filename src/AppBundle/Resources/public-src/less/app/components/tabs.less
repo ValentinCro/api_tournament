@@ -1,0 +1,87 @@
+/* ------------------------- *\
+    Nav
+\* ------------------------- */
+.c-tabs-nav-overflow(@color) {
+  white-space: nowrap;
+  overflow: auto;
+  background:
+          linear-gradient(to right, @color 20%, rgba(255, 255, 255, 0) 100%),
+          linear-gradient(to left, @color, rgba(255, 255, 255, 0) 80%) 100% 0,
+          radial-gradient(farthest-side at -10% 50%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)),
+          radial-gradient(farthest-side at 110% 50%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 100% 0;
+  background-repeat: no-repeat;
+  background-color: @color;
+  background-size: 50px 100%, 50px 100%, 10px 100%, 10px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+.c-tabs-nav {
+  position: relative;
+  font-size: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+
+  &.as--overflow-bg-content {
+    .c-tabs-nav-overflow(@color-bg-content);
+  }
+
+  &.as--overflow-bg-white {
+    .c-tabs-nav-overflow(white);
+  }
+
+  &__link {
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    padding: .8em 1.2em;
+    transition: color .2s;
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      right: 50%;
+      opacity: 0;
+      height: 3px;
+
+      @media only screen and (min-width: @mq-lg) {
+        transition: left .2s, right .2s;
+      }
+    }
+
+    &:hover,
+    &:focus {
+      &:after {
+        left: 0;
+        right: 0;
+        background: #333;
+        opacity: 1;
+      }
+    }
+
+    &.as--active {
+      color: @color-primary;
+
+      &:after {
+        left: 0;
+        right: 0;
+        background: @color-primary;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/* ------------------------- *\
+    Panels
+\* ------------------------- */
+.c-tabs-panel {
+  display: none;
+  padding: 5px;
+  padding-top: 15px;
+
+  &.as--active {
+    display: block;
+  }
+}

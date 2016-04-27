@@ -129,6 +129,10 @@ class StyleguideController extends Controller
                         [
                             "slug" => "tooltips",
                             "title" => "Tooltips"
+                        ],
+                        [
+                            "slug" => "tabs",
+                            "title" => "Tabs"
                         ]
                     ]
                 ]
