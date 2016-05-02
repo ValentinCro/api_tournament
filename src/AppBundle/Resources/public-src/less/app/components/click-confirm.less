@@ -1,0 +1,312 @@
+/* ------------------------- *\
+    Style for Tether drop clickConfirm
+\* ------------------------- */
+@c-click-confirm-arrow-size: 10px;
+
+.c-click-confirm {
+  z-index: 9999;
+  position: absolute;
+  display: none;
+  max-width: 260px;
+  max-height: 100%;
+  opacity: 0;
+  transition: opacity 150ms;
+
+  .ui-click-confirm-color(#fff, #333);
+
+  &.c-click-confirm-open {
+    display: block;
+  }
+
+  &.c-click-confirm-open-transitionend {
+    display: block;
+  }
+
+  &.c-click-confirm-after-open {
+    opacity: 1;
+  }
+
+  .c-click-confirm-content {
+    position: relative;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 10px;
+    text-align: center;
+
+    &:before,
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border-width: @c-click-confirm-arrow-size;
+      border-style: solid;
+    }
+  }
+
+  &__title {
+    font-family: @font-bold;
+    font-size: 16px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    padding: 0 5px;
+
+    &:empty {
+      display: none;
+    }
+  }
+  &__title + &__message {
+    margin-top: -4px;
+  }
+  &__message {
+    margin-bottom: 5px;
+    opacity: .8;
+    line-height: 1.2;
+    font-size: 13px;
+    padding: 0 5px;
+
+    &:empty {
+      display: none;
+    }
+  }
+  &__message + &__buttons {
+    margin-top: 10px;
+  }
+  &__buttons {
+    .clearfix();
+  }
+  &__button-cancel {
+    float: left;
+    margin-right: 10px;
+  }
+  &__button-confirm {
+    float: right;
+    margin-left: 10px;
+  }
+}
+
+// Colors
+// -------------------------
+.ui-click-confirm-color (@bg: #414141, @color: #fff) {
+  .c-click-confirm-content {
+    background: @bg;
+    color: @color;
+  }
+
+  &.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-center .c-click-confirm-content,
+  &.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-left.c-click-confirm-target-attached-top .c-click-confirm-content,
+  &.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-right.c-click-confirm-target-attached-top .c-click-confirm-content {
+    &:before {
+      border-top-color: #ccc;
+    }
+    &:after {
+      border-top-color: @bg;
+    }
+  }
+
+
+  &.c-click-confirm-element-attached-top.c-click-confirm-element-attached-center .c-click-confirm-content,
+  &.c-click-confirm-element-attached-top.c-click-confirm-element-attached-left.c-click-confirm-target-attached-bottom .c-click-confirm-content,
+  &.c-click-confirm-element-attached-top.c-click-confirm-element-attached-right.c-click-confirm-target-attached-bottom .c-click-confirm-content {
+    &:before {
+      border-bottom-color: #ccc;
+    }
+    &:after {
+      border-bottom-color: @bg;
+    }
+  }
+
+  &.c-click-confirm-element-attached-right.c-click-confirm-element-attached-middle .c-click-confirm-content,
+  &.c-click-confirm-element-attached-top.c-click-confirm-element-attached-right.c-click-confirm-target-attached-left .c-click-confirm-content,
+  &.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-right.c-click-confirm-target-attached-left .c-click-confirm-content {
+    &:before {
+      border-left-color: #ccc;
+    }
+    &:after {
+      border-left-color: @bg;
+    }
+  }
+
+  &.c-click-confirm-element-attached-left.c-click-confirm-element-attached-middle .c-click-confirm-content,
+  &.c-click-confirm-element-attached-top.c-click-confirm-element-attached-left.c-click-confirm-target-attached-right .c-click-confirm-content,
+  &.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-left.c-click-confirm-target-attached-right .c-click-confirm-content {
+    &:before {
+      border-right-color: #ccc;
+    }
+    &:after {
+      border-right-color: @bg;
+    }
+  }
+}
+
+
+// Positions
+// -------------------------
+.c-click-confirm-element.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-center .c-click-confirm-content,
+.c-click-confirm-element.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-left.c-click-confirm-target-attached-top .c-click-confirm-content,
+.c-click-confirm-element.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-right.c-click-confirm-target-attached-top .c-click-confirm-content {
+  &:before {
+    bottom: @c-click-confirm-arrow-size * (-2) - 1px;
+  }
+  &:after {
+    bottom: @c-click-confirm-arrow-size * (-2);
+  }
+}
+
+.c-click-confirm-element.c-click-confirm-element-attached-top.c-click-confirm-element-attached-center .c-click-confirm-content,
+.c-click-confirm-element.c-click-confirm-element-attached-top.c-click-confirm-element-attached-left.c-click-confirm-target-attached-bottom .c-click-confirm-content,
+.c-click-confirm-element.c-click-confirm-element-attached-top.c-click-confirm-element-attached-right.c-click-confirm-target-attached-bottom .c-click-confirm-content {
+  &:before {
+    top: @c-click-confirm-arrow-size * (-2) - 1px;
+  }
+  &:after {
+    top: @c-click-confirm-arrow-size * (-2);
+  }
+}
+
+.c-click-confirm-element.c-click-confirm-element-attached-right.c-click-confirm-element-attached-middle .c-click-confirm-content,
+.c-click-confirm-element.c-click-confirm-element-attached-top.c-click-confirm-element-attached-right.c-click-confirm-target-attached-left .c-click-confirm-content,
+.c-click-confirm-element.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-right.c-click-confirm-target-attached-left .c-click-confirm-content {
+  &:before {
+    right: @c-click-confirm-arrow-size * (-2) - 1px;
+  }
+  &:after {
+    right: @c-click-confirm-arrow-size * (-2);
+  }
+}
+
+.c-click-confirm-element.c-click-confirm-element-attached-left.c-click-confirm-element-attached-middle .c-click-confirm-content,
+.c-click-confirm-element.c-click-confirm-element-attached-top.c-click-confirm-element-attached-left.c-click-confirm-target-attached-right .c-click-confirm-content,
+.c-click-confirm-element.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-left.c-click-confirm-target-attached-right .c-click-confirm-content {
+  &:before {
+    left: @c-click-confirm-arrow-size * (-2) - 1px;
+  }
+  &:after {
+    left: @c-click-confirm-arrow-size * (-2);
+  }
+}
+
+
+.c-click-confirm-element.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-center .c-click-confirm-content {
+  margin-bottom: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    left: 50%;
+    margin-left: -@c-click-confirm-arrow-size;
+  }
+}
+
+
+.c-click-confirm-element.c-click-confirm-element-attached-top.c-click-confirm-element-attached-center .c-click-confirm-content {
+  margin-top: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    left: 50%;
+    margin-left: -@c-click-confirm-arrow-size;
+  }
+}
+
+
+.c-click-confirm-element.c-click-confirm-element-attached-right.c-click-confirm-element-attached-middle .c-click-confirm-content {
+  margin-right: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    top: 50%;
+    margin-top: -@c-click-confirm-arrow-size;
+  }
+}
+
+
+.c-click-confirm-element.c-click-confirm-element-attached-left.c-click-confirm-element-attached-middle .c-click-confirm-content {
+  margin-left: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    top: 50%;
+    margin-top: -@c-click-confirm-arrow-size;
+  }
+}
+
+
+.c-click-confirm-element.c-click-confirm-element-attached-top.c-click-confirm-element-attached-left.c-click-confirm-target-attached-bottom .c-click-confirm-content {
+  margin-top: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    left: @c-click-confirm-arrow-size;
+  }
+}
+
+
+.c-click-confirm-element.c-click-confirm-element-attached-top.c-click-confirm-element-attached-right.c-click-confirm-target-attached-bottom .c-click-confirm-content {
+  margin-top: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    right: @c-click-confirm-arrow-size;
+  }
+}
+
+
+.c-click-confirm-element.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-left.c-click-confirm-target-attached-top .c-click-confirm-content {
+  margin-bottom: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    left: @c-click-confirm-arrow-size;
+  }
+}
+
+
+.c-click-confirm-element.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-right.c-click-confirm-target-attached-top .c-click-confirm-content {
+  margin-bottom: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    right: @c-click-confirm-arrow-size;
+  }
+}
+
+
+.c-click-confirm-element.c-click-confirm-element-attached-top.c-click-confirm-element-attached-right.c-click-confirm-target-attached-left .c-click-confirm-content {
+  margin-right: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    top: @c-click-confirm-arrow-size;
+  }
+}
+
+.c-click-confirm-element.c-click-confirm-element-attached-top.c-click-confirm-element-attached-left.c-click-confirm-target-attached-right .c-click-confirm-content {
+  margin-left: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    top: @c-click-confirm-arrow-size;
+  }
+}
+
+.c-click-confirm-element.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-right.c-click-confirm-target-attached-left .c-click-confirm-content {
+  margin-right: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    bottom: @c-click-confirm-arrow-size;
+  }
+}
+
+.c-click-confirm-element.c-click-confirm-element-attached-bottom.c-click-confirm-element-attached-left.c-click-confirm-target-attached-right .c-click-confirm-content {
+  margin-left: @c-click-confirm-arrow-size;
+
+  &:before,
+  &:after {
+    bottom: @c-click-confirm-arrow-size;
+  }
+}

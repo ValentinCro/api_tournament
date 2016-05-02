@@ -36,7 +36,7 @@
 
             scope.vm.create();
 
-            $('body').on('click.ui.dropdown.in', '.o-dropdown__drop .o-dropdown__menu a, .o-dropdown__drop .o-dropdown__menu button', function () {
+            angular.element('body').on('click.ui.dropdown.in', '.o-dropdown__drop .o-dropdown__menu a:not([ui-click-confirm]), .o-dropdown__drop .o-dropdown__menu button:not([ui-click-confirm])', function () {
                 scope.vm.close();
             });
         }

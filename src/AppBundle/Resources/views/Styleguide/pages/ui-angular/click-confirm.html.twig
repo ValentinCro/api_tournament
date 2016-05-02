@@ -5,7 +5,7 @@
     {% block sgCode %}
 <button type="button"
         class="o-button"
-        ui-click-confirm="">
+        [m]ui-click-confirm="vm.myFunction()"[/m]>
     Confirm default
 </button>
     {% endblock %}
@@ -15,26 +15,31 @@
     {% block sgCode %}
 <button type="button"
         class="o-button"
-        ui-click-confirm=""
-        ui-click-confirm-options='{
+        ui-click-confirm="vm.myFunction()"
+        [m]ui-click-confirm-options='{
             type: "default",
             title: "Title",
             message: "This is the confirm message",
             cancel: "No, thanks",
-            confirm: "Yes, please!"
-        }'>
-    Confirm all options
+            cancelClass: "as--link",
+            confirm: "Yes, please!",
+            confirmClass: "as--primary",
+            position: "right middle"
+        }'[/m]>
+Confirm all options
 </button>
     {% endblock %}
 {% endembed %}
+
+<h4>Types</h4>
 
 {% embed sgTplDoc %}
     {% block sgCode %}
 <button type="button"
         class="o-button"
-        ui-click-confirm=""
+        ui-click-confirm="vm.myFunction()"
         ui-click-confirm-options='{
-            type: "danger",
+            type: "[m]danger[/m]",
             message: "You are about to do something dangerous!",
             confirm: "Do it!",
         }'>
@@ -47,9 +52,9 @@
     {% block sgCode %}
 <button type="button"
         class="o-button"
-        ui-click-confirm=""
+        ui-click-confirm="vm.myFunction()"
         ui-click-confirm-options='{
-            type: "remove",
+            type: "[m]remove[/m]",
             message: "You are about to remove something!",
             confirm: "Remove"
         }'>
@@ -62,9 +67,9 @@
     {% block sgCode %}
 <button type="button"
         class="o-button"
-        ui-click-confirm=""
+        ui-click-confirm="vm.myFunction()"
         ui-click-confirm-options='{
-            type: "success",
+            type: "[m]success[/m]",
             message: "You are about to do something good!",
             confirm: "Yes, of course!"
         }'>
@@ -72,3 +77,20 @@
 </button>
     {% endblock %}
 {% endembed %}
+
+<h4>Available positions</h4>
+
+<pre>
+'top left'
+'left top'
+'left middle'
+'left bottom'
+'bottom left'
+'bottom center'
+'bottom right'
+'right bottom'
+'right middle' (default)
+'right top'
+'top right'
+'top center'
+</pre>
