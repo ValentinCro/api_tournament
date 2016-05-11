@@ -84,7 +84,8 @@
                 classes: 'as--' + options.style.toLowerCase(),
                 position: options.position,
                 openOn: 'hover',
-                remove: true
+                remove: true,
+                constrainToScrollParent: false
             });
         }
 

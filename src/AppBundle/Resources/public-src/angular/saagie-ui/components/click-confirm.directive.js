@@ -113,7 +113,8 @@
                 classes: '',
                 position: options.position,
                 openOn: 'click',
-                remove: true
+                remove: true,
+                constrainToScrollParent: false
             });
 
             vm.clickConfirm.on('open', function () {
