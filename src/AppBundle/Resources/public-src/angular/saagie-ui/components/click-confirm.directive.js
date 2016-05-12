@@ -149,7 +149,7 @@
             vm.clickConfirm.on('close', function () {
                 $document.off('click.uiClickConfirm.cancel.' + uniqkey);
                 $document.off('click.uiClickConfirm.confirm.' + uniqkey);
-                $document.off('keypress.uiClickConfirm.' + uniqkey);
+                $document.off('keydown.uiClickConfirm.' + uniqkey);
             });
         }
 
