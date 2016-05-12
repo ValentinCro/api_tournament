@@ -97,7 +97,8 @@
                 position: options.position,
                 constrainToWindow: true,
                 openOn: 'click',
-                remove: true
+                remove: true,
+                constrainToScrollParent: false
             });
 
             vm.dropdown.on('open', function () {
