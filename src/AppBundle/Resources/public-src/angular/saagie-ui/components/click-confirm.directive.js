@@ -42,7 +42,6 @@
     /* @ngInject */
     function uiClickConfirmController($scope, $document) {
         var vm = this;
-        var isTouchDevice = 'ontouchstart' in window || navigator.msMaxTouchPoints;
         var uniqkey = new Date().getTime();
         
         vm.create = create;
@@ -63,10 +62,6 @@
         }
 
         function create () {
-            if(isTouchDevice) {
-                return;
-            }
-
             var _DropClickConfirm = Drop.createContext({
                 classPrefix: 'c-click-confirm'
             });
@@ -154,18 +149,10 @@
         }
 
         function close () {
-            if(isTouchDevice) {
-                return;
-            }
-
             vm.clickConfirm.close();
         }
 
         function destroy () {
-            if(isTouchDevice) {
-                return;
-            }
-
             try {
                 vm.clickConfirm.off('open');
                 vm.clickConfirm.off('close');
