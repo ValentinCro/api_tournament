@@ -5,10 +5,10 @@
         .module('ui.saagie')
         .directive('uiClickConfirm', uiClickConfirm);
 
-    uiClickConfirm.$inject = ['$document', '$uibModal'];
+    uiClickConfirm.$inject = [];
 
     /* @ngInject */
-    function uiClickConfirm($document, $uibModal) {
+    function uiClickConfirm() {
         var directive = {
             bindToController: true,
             controller:       uiClickConfirmController,
