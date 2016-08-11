@@ -5,6 +5,9 @@ MAINTAINER Saagie
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer
 
+# Install php-mongo
+RUN apt-get install php5-mongo
+
 # Install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
 RUN apt-get install nodejs -y
