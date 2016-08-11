@@ -6,7 +6,7 @@ RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer
 
 # Install php-mongo
-RUN apt-getupdate && \
+RUN apt-get update && \
     apt-get install php5-mongo
 
 # Install NodeJS
