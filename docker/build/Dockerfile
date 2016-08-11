@@ -7,7 +7,7 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 
 # Install php-mongo
 RUN apt-get update && \
-    apt-get install php5-mongo
+    apt-get install php5-mongo -y
 
 # Install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
