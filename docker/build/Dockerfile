@@ -31,7 +31,7 @@ RUN apt-get install -y git bzip2
 # Fix PHP.ini
 RUN echo 'memory_limit=1024M\n\
 date.timezone=Europe/Paris\n\
-extension_dir=/etc/php5/mods-available\n'\
+extension=mongo.so\n'\
 >> /usr/local/etc/php/php.ini
 
 # Add entrypoint
