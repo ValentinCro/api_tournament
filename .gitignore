@@ -15,7 +15,7 @@
 /vendor/
 /web/bundles/
 .idea
-
+    
 # OS generated files #
 # #################### #
 .DS_Store
@@ -28,9 +28,6 @@ Thumbs.db
 
 # App #
 # #################### #
-npm-debug.log
-node_modules
-bower_components
 src/AppBundle/Resources/public/assets/
 src/AppBundle/Resources/public/css/
 src/AppBundle/Resources/public/js/

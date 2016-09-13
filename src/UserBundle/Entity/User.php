@@ -49,6 +49,13 @@ class User
      */
     private $userDate;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="user_Token_Validity_Date", type="datetime")
+     */
+    private $userTokenValidityDate;
+
 
     /**
      * Get id
@@ -130,6 +137,16 @@ class User
     public function getUserToken()
     {
         return $this->userToken;
+    }
+
+    public function setUserTokenValidityDate($userTokenValidityDate) {
+        $this->userTokenValidityDate = $userTokenValidityDate;
+
+        return $this;
+    }
+
+    public function getUserTokenValidityDate() {
+        return $this->userTokenValidityDate;
     }
 
     /**

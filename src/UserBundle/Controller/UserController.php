@@ -84,7 +84,20 @@ class UserController extends Controller
                 ->getRepository('UserBundle:User')
                 ->findOneBy(array('userName' => $login, 'userPassword' => $pass));
             if (count($data) > 0) {
-                $json = $this->serializer->serialize($data->getUserToken(), 'json');
+                $now = new \DateTime();
+                $diff = $now->diff($data->getUserTokenValidityDate());
+                $hours = $diff->h;
+                $hours = $hours + ($diff->days*24);
+
+                if ($hours > 8) {
+                    $token = bin2hex(openssl_random_pseudo_bytes(16));
+                    $data->setUserTokenValidityDate($token);
+                    $this->getDoctrine()->getManager()->persist($data);
+                    $this->getDoctrine()->getManager()->flush();
+                    $json = $this->serializer->serialize($data->getUserToken(), 'json');
+                } else {
+                    $json = $this->serializer->serialize($data->getUserToken(), 'json');
+                }
                 return new Response($json, 200);
             }
         }
@@ -102,8 +115,9 @@ class UserController extends Controller
             $user = new User();
             $user->setUserName($login);
             $user->setUserPassword($pass);
-            $user->setUserToken("");
+            $user->setUserToken(bin2hex(openssl_random_pseudo_bytes(16)));
             $user->setUserDate(new \DateTime());
+            $user->setUserTokenValidityDate(new \DateTime());
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
             return new Response('', Response::HTTP_OK);
