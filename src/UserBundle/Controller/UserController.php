@@ -3,6 +3,7 @@
 namespace UserBundle\Controller;
 
 use AppBundle\Services\ProductService;
+use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\Serializer;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -13,6 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use UserBundle\Entity\User;
+use UserBundle\Dto\UserLogin;
 
 
 class UserController extends Controller
@@ -77,9 +79,11 @@ class UserController extends Controller
      * @Method({"POST"})
      */
     public function postAuthenticateAction(Request $request) {
-        if ($request->get('password') != null && $request->get('userName')) {
-            $pass = sha1($request->get('password'));
-            $login = htmlspecialchars($request->get('userName'));
+        $body = $request->getContent();
+        $user = $this->serializer->deserialize($body, 'UserBundle\Dto\UserLogin', 'json');
+        if ($user != null) {
+            $pass = sha1($user->getUserPassword());
+            $login = htmlspecialchars($user->getUserName());
             $data = $this->getDoctrine()
                 ->getRepository('UserBundle:User')
                 ->findOneBy(array('userName' => $login, 'userPassword' => $pass));
@@ -91,7 +95,8 @@ class UserController extends Controller
 
                 if ($hours > 8) {
                     $token = bin2hex(openssl_random_pseudo_bytes(16));
-                    $data->setUserTokenValidityDate($token);
+                    $data->setUserToken($token);
+                    $data->setUserTokenValidityDate(new \DateTime());
                     $this->getDoctrine()->getManager()->persist($data);
                     $this->getDoctrine()->getManager()->flush();
                     $json = $this->serializer->serialize($data->getUserToken(), 'json');
@@ -100,6 +105,7 @@ class UserController extends Controller
                 }
                 return new Response($json, 200);
             }
+            return new Response('', Response::HTTP_NOT_FOUND);
         }
         return new Response('', Response::HTTP_BAD_REQUEST);
     }
@@ -109,18 +115,21 @@ class UserController extends Controller
      * @Method({"POST"})
      */
     public function postCreateUserAction(Request $request) {
-        if ($request->get('password') != null && $request->get('userName')) {
-            $pass = sha1($request->get('password'));
-            $login = htmlspecialchars($request->get('userName'));
+        $body = $request->getContent();
+        $user = $this->serializer->deserialize($body, 'UserBundle\Dto\UserLogin', 'json');
+        if ($user != null) {
+            $pass = sha1($user->getUserPassword('password'));
+            $login = htmlspecialchars($user->getUserName('userName'));
             $user = new User();
             $user->setUserName($login);
             $user->setUserPassword($pass);
-            $user->setUserToken(bin2hex(openssl_random_pseudo_bytes(16)));
+            $token = bin2hex(openssl_random_pseudo_bytes(16));
+            $user->setUserToken($token);
             $user->setUserDate(new \DateTime());
             $user->setUserTokenValidityDate(new \DateTime());
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
-            return new Response('', Response::HTTP_OK);
+            return new Response($this->serializer->serialize($token, 'json'), Response::HTTP_OK);
         }
         return new Response('', Response::HTTP_BAD_REQUEST);
     }

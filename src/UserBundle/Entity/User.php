@@ -45,7 +45,7 @@ class User
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="user_date", type="date")
+     * @ORM\Column(name="user_date", type="datetime")
      */
     private $userDate;
 
