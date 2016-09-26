@@ -1,0 +1,85 @@
+<?php
+
+namespace UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
+ */
+class User
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=80)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=255)
+     */
+    private $token;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="tokenValidityDate", type="datetime")
+     */
+    private $tokenValidityDate;
+
+    /**
+     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Tournament", mappedBy="creator")
+     */
+    private $createdTournaments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="TournamentBundle\Entity\Tournament", inversedBy="players")
+     * @ORM\JoinTable(name="user_tournament")
+     */
+    private $tournamentIn;
+
+    /**
+     * @var int
+     *
+     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Team", mappedBy="leader")
+     */
+    private $teamsFounded;
+
+    /**
+     * @var int
+     *
+     * @ORM\ManyToMany(targetEntity="TournamentBundle\Entity\Team", inversedBy="players")
+     */
+    private $teamsIn;
+
+
+}

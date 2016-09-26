@@ -31,7 +31,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/user")
+     * @Route("/users")
      * @Method({"GET"})
      */
     public function getUsersAction()
@@ -39,7 +39,13 @@ class UserController extends Controller
         $data = $this->getDoctrine()
             ->getRepository('UserBundle:User')
             ->findAll();
-        $json = $this->serializer->serialize($data, 'json');
+        $users = array();
+        foreach ($data as $user) {
+            $tmp = new \UserBundle\Dto\User();
+            $tmp->entityToDto($user);
+            array_push($users, $tmp);
+        }
+        $json = $this->serializer->serialize($users, 'json');
         return new Response($json);
     }
 
@@ -54,7 +60,9 @@ class UserController extends Controller
             ->getRepository('UserBundle:User')
             ->findOneBy(array('id' => $id));
 
-        $json = $this->serializer->serialize($data, 'json');
+        $user = new \UserBundle\Dto\User();
+        $user->entityToDto($data);
+        $json = $this->serializer->serialize($user, 'json');
         return new Response($json);
     }
 
@@ -68,9 +76,11 @@ class UserController extends Controller
     {
         $data = $this->getDoctrine()
             ->getRepository('UserBundle:User')
-            ->findOneBy(array('login' => $login));
+            ->findOneBy(array('name' => $login));
 
-        $json = $this->serializer->serialize($data, 'json');
+        $user = new \UserBundle\Dto\User();
+        $user->entityToDto($data);
+        $json = $this->serializer->serialize($user, 'json');
         return new Response($json);
     }
 
@@ -86,22 +96,22 @@ class UserController extends Controller
             $login = htmlspecialchars($user->getUserName());
             $data = $this->getDoctrine()
                 ->getRepository('UserBundle:User')
-                ->findOneBy(array('userName' => $login, 'userPassword' => $pass));
+                ->findOneBy(array('name' => $login, 'password' => $pass));
             if (count($data) > 0) {
                 $now = new \DateTime();
-                $diff = $now->diff($data->getUserTokenValidityDate());
+                $diff = $now->diff($data->getTokenValidityDate());
                 $hours = $diff->h;
                 $hours = $hours + ($diff->days*24);
 
                 if ($hours > 8) {
                     $token = bin2hex(openssl_random_pseudo_bytes(16));
-                    $data->setUserToken($token);
-                    $data->setUserTokenValidityDate(new \DateTime());
+                    $data->setToken($token);
+                    $data->setTokenValidityDate(new \DateTime());
                     $this->getDoctrine()->getManager()->persist($data);
                     $this->getDoctrine()->getManager()->flush();
-                    $json = $this->serializer->serialize($data->getUserToken(), 'json');
+                    $json = $this->serializer->serialize($data->getToken(), 'json');
                 } else {
-                    $json = $this->serializer->serialize($data->getUserToken(), 'json');
+                    $json = $this->serializer->serialize($data->getToken(), 'json');
                 }
                 return new Response($json, 200);
             }
@@ -121,12 +131,12 @@ class UserController extends Controller
             $pass = sha1($user->getUserPassword('password'));
             $login = htmlspecialchars($user->getUserName('userName'));
             $user = new User();
-            $user->setUserName($login);
-            $user->setUserPassword($pass);
+            $user->setName($login);
+            $user->setPassword($pass);
             $token = bin2hex(openssl_random_pseudo_bytes(16));
-            $user->setUserToken($token);
-            $user->setUserDate(new \DateTime());
-            $user->setUserTokenValidityDate(new \DateTime());
+            $user->setToken($token);
+            $user->setDate(new \DateTime());
+            $user->setTokenValidityDate(new \DateTime());
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
             return new Response($this->serializer->serialize($token, 'json'), Response::HTTP_OK);

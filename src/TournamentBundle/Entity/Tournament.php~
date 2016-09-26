@@ -1,0 +1,180 @@
+<?php
+
+namespace TournamentBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Tournament
+ *
+ * @ORM\Table(name="tournament")
+ * @ORM\Entity(repositoryClass="TournamentBundle\Repository\TournamentRepository")
+ */
+class Tournament
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=80)
+     */
+    private $name;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="private", type="boolean")
+     */
+    private $private;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
+     */
+    private $password;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="isInTeam", type="boolean")
+     */
+    private $isInTeam;
+
+    /**
+     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Score", mappedBy="tournamentIn")
+     */
+    private $scores;
+
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="TournamentBundle\Entity\Team", mappedBy="tournamentsIn")
+     */
+    private $teams;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User", mappedBy="tournamentIn")
+     */
+    private $players;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="createdTournaments")
+     */
+    private $creator;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Tournament
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set private
+     *
+     * @param boolean $private
+     *
+     * @return Tournament
+     */
+    public function setPrivate($private)
+    {
+        $this->private = $private;
+
+        return $this;
+    }
+
+    /**
+     * Get private
+     *
+     * @return bool
+     */
+    public function getPrivate()
+    {
+        return $this->private;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return Tournament
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set isInTeam
+     *
+     * @param boolean $isInTeam
+     *
+     * @return Tournament
+     */
+    public function setIsInTeam($isInTeam)
+    {
+        $this->isInTeam = $isInTeam;
+
+        return $this;
+    }
+
+    /**
+     * Get isInTeam
+     *
+     * @return bool
+     */
+    public function getIsInTeam()
+    {
+        return $this->isInTeam;
+    }
+}
+
