@@ -77,11 +77,13 @@ class UserController extends Controller
         $data = $this->getDoctrine()
             ->getRepository('UserBundle:User')
             ->findOneBy(array('name' => $login));
-
-        $user = new \UserBundle\Dto\User();
-        $user->entityToDto($data);
-        $json = $this->serializer->serialize($user, 'json');
-        return new Response($json);
+        if ($data != null) {
+            $user = new \UserBundle\Dto\User();
+            $user->entityToDto($data);
+            $json = $this->serializer->serialize($user, 'json');
+            return new Response($json);
+        }
+        return new Response('', Response::HTTP_NOT_FOUND);
     }
 
     /**

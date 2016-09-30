@@ -20,6 +20,13 @@ class Tournament
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
 
     /**
      * @var string
@@ -61,7 +68,7 @@ class Tournament
     private $teams;
 
     /**
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User", mappedBy="tournamentIn")
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User", mappedBy="tournamentIn", cascade={"persist"})
      */
     private $players;
 
@@ -310,5 +317,29 @@ class Tournament
     public function getCreator()
     {
         return $this->creator;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Tournament
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

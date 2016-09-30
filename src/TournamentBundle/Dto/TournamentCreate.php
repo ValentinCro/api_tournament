@@ -15,10 +15,10 @@ class TournamentCreate
     private $name;
 
     /**
-     * @var integer
-     * @Type("integer")
+     * @var string
+     * @Type("string")
      */
-    private $creatorId;
+    private $creator;
 
     /**
      * @var boolean
@@ -63,20 +63,20 @@ class TournamentCreate
     }
 
     /**
-     * @return integer
+     * @return string
      */
-    public function getCreatorId()
+    public function getCreator()
     {
-        return $this->creatorId;
+        return $this->creator;
     }
 
     /**
-     * @param integer $creator
+     * @param string $creator
      * @return TournamentCreate
      */
-    public function setCreatorId($creatorId)
+    public function setCreator($creator)
     {
-        $this->creatorId = $creatorId;
+        $this->creator = $creator;
         return $this;
     }
 

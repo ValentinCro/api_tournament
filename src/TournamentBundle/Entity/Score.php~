@@ -41,7 +41,7 @@ class Score
 
     /**
      * @var int
-     * @ORM\ManyToOne(targetEntity="TournamentBundle\Entity\Tournament", inversedBy="tournamentScores")
+     * @ORM\ManyToOne(targetEntity="TournamentBundle\Entity\Tournament", inversedBy="scores")
      */
     private $tournamentIn;
 

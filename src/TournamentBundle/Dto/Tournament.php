@@ -56,6 +56,12 @@ class Tournament {
      */
     private $scores;
 
+    /**
+     * @var \DateTime
+     * @Type("datetime")
+     */
+    private $date;
+
     public function entityToDto(\TournamentBundle\Entity\Tournament $tournament) {
         $this->setId($tournament->getId());
         $this->setName($tournament->getName());
@@ -65,6 +71,7 @@ class Tournament {
         $this->setPlayers($tournament->getPlayers()->toArray());
         $this->setTeams($tournament->getTeams()->toArray());
         $this->setScores($tournament->getScores()->toArray());
+        $this->setDate($tournament->getDate());
     }
 
     /**
@@ -193,6 +200,24 @@ class Tournament {
     public function setScores($scores)
     {
         $this->scores = $scores;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param \DateTime $date
+     * @return Tournament
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
     }
 
 }

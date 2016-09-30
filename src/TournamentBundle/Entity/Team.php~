@@ -30,20 +30,20 @@ class Team
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User", mappedBy="userTeamsIn")
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User", mappedBy="teamsIn")
      */
     private $players;
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="userTeamsFounded")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="teamsFounded")
      */
     private $leader;
 
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="TournamentBundle\Entity\Tournament", inversedBy="tournamentTeams")
+     * @ORM\ManyToMany(targetEntity="TournamentBundle\Entity\Tournament", inversedBy="teams")
      */
     private $tournamentsIn;
 

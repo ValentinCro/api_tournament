@@ -20,6 +20,13 @@ class Tournament
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
 
     /**
      * @var string
@@ -176,5 +183,139 @@ class Tournament
     {
         return $this->isInTeam;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add score
+     *
+     * @param \TournamentBundle\Entity\Score $score
+     *
+     * @return Tournament
+     */
+    public function addScore(\TournamentBundle\Entity\Score $score)
+    {
+        $this->scores[] = $score;
+
+        return $this;
+    }
+
+    /**
+     * Remove score
+     *
+     * @param \TournamentBundle\Entity\Score $score
+     */
+    public function removeScore(\TournamentBundle\Entity\Score $score)
+    {
+        $this->scores->removeElement($score);
+    }
+
+    /**
+     * Get scores
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getScores()
+    {
+        return $this->scores;
+    }
+
+    /**
+     * Add team
+     *
+     * @param \TournamentBundle\Entity\Team $team
+     *
+     * @return Tournament
+     */
+    public function addTeam(\TournamentBundle\Entity\Team $team)
+    {
+        $this->teams[] = $team;
+
+        return $this;
+    }
+
+    /**
+     * Remove team
+     *
+     * @param \TournamentBundle\Entity\Team $team
+     */
+    public function removeTeam(\TournamentBundle\Entity\Team $team)
+    {
+        $this->teams->removeElement($team);
+    }
+
+    /**
+     * Get teams
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTeams()
+    {
+        return $this->teams;
+    }
+
+    /**
+     * Add player
+     *
+     * @param \UserBundle\Entity\User $player
+     *
+     * @return Tournament
+     */
+    public function addPlayer(\UserBundle\Entity\User $player)
+    {
+        $this->players[] = $player;
+
+        return $this;
+    }
+
+    /**
+     * Remove player
+     *
+     * @param \UserBundle\Entity\User $player
+     */
+    public function removePlayer(\UserBundle\Entity\User $player)
+    {
+        $this->players->removeElement($player);
+    }
+
+    /**
+     * Get players
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlayers()
+    {
+        return $this->players;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \UserBundle\Entity\User $creator
+     *
+     * @return Tournament
+     */
+    public function setCreator(\UserBundle\Entity\User $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+}
