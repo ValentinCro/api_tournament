@@ -68,7 +68,7 @@ class Tournament
     private $teams;
 
     /**
-     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User", mappedBy="tournamentIn")
+     * @ORM\ManyToMany(targetEntity="UserBundle\Entity\User", mappedBy="tournamentIn", cascade={"persist"})
      */
     private $players;
 
@@ -76,6 +76,11 @@ class Tournament
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="createdTournaments")
      */
     private $creator;
+
+    /**
+     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Rule", mappedBy="tournament")
+     */
+    private $rules;
 
 
     /**
@@ -317,5 +322,63 @@ class Tournament
     public function getCreator()
     {
         return $this->creator;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Tournament
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Add rule
+     *
+     * @param \TournamentBundle\Entity\Rule $rule
+     *
+     * @return Tournament
+     */
+    public function addRule(\TournamentBundle\Entity\Rule $rule)
+    {
+        $this->rules[] = $rule;
+
+        return $this;
+    }
+
+    /**
+     * Remove rule
+     *
+     * @param \TournamentBundle\Entity\Rule $rule
+     */
+    public function removeRule(\TournamentBundle\Entity\Rule $rule)
+    {
+        $this->rules->removeElement($rule);
+    }
+
+    /**
+     * Get rules
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRules()
+    {
+        return $this->rules;
     }
 }

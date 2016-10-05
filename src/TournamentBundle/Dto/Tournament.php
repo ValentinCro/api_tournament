@@ -57,6 +57,12 @@ class Tournament {
     private $scores;
 
     /**
+     * @var array
+     * @Type("array<TournamentBundle\Entity\Rule>")
+     */
+    private $rules;
+
+    /**
      * @var \DateTime
      * @Type("datetime")
      */
@@ -71,6 +77,7 @@ class Tournament {
         $this->setPlayers($tournament->getPlayers()->toArray());
         $this->setTeams($tournament->getTeams()->toArray());
         $this->setScores($tournament->getScores()->toArray());
+        $this->setRules($tournament->getRules()->toArray());
         $this->setDate($tournament->getDate());
     }
 
@@ -217,6 +224,24 @@ class Tournament {
     public function setDate($date)
     {
         $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRules()
+    {
+        return $this->rules;
+    }
+
+    /**
+     * @param array $rules
+     * @return Tournament
+     */
+    public function setRules($rules)
+    {
+        $this->rules = $rules;
         return $this;
     }
 

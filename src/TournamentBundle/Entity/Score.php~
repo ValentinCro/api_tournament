@@ -41,10 +41,16 @@ class Score
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="turn", type="integer")
+     */
+    private $turn;
+
+    /**
+     * @var int
      * @ORM\ManyToOne(targetEntity="TournamentBundle\Entity\Tournament", inversedBy="scores")
      */
     private $tournamentIn;
-
 
     /**
      * Get id
@@ -151,4 +157,23 @@ class Score
     {
         return $this->tournamentIn;
     }
+
+    /**
+     * @return int
+     */
+    public function getTurn()
+    {
+        return $this->turn;
+    }
+
+    /**
+     * @param int $turn
+     * @return Score
+     */
+    public function setTurn($turn)
+    {
+        $this->turn = $turn;
+        return $this;
+    }
+
 }

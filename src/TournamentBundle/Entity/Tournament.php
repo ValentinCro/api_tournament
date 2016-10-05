@@ -43,13 +43,6 @@ class Tournament
     private $private;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255, nullable=true)
-     */
-    private $password;
-
-    /**
      * @var bool
      *
      * @ORM\Column(name="isInTeam", type="boolean")
@@ -76,6 +69,11 @@ class Tournament
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="createdTournaments")
      */
     private $creator;
+
+    /**
+     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Rule", mappedBy="tournament", cascade={"persist"})
+     */
+    private $rules;
 
 
     /**
@@ -137,30 +135,6 @@ class Tournament
     }
 
     /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return Tournament
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
      * Set isInTeam
      *
      * @param boolean $isInTeam
@@ -191,6 +165,7 @@ class Tournament
         $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
         $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
         $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->rules = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -341,5 +316,39 @@ class Tournament
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Add rule
+     *
+     * @param \TournamentBundle\Entity\Rule $rule
+     *
+     * @return Tournament
+     */
+    public function addRule(\TournamentBundle\Entity\Rule $rule)
+    {
+        $this->rules[] = $rule;
+
+        return $this;
+    }
+
+    /**
+     * Remove rule
+     *
+     * @param \TournamentBundle\Entity\Rule $rule
+     */
+    public function removeRule(\TournamentBundle\Entity\Rule $rule)
+    {
+        $this->rules->removeElement($rule);
+    }
+
+    /**
+     * Get rules
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRules()
+    {
+        return $this->rules;
     }
 }
