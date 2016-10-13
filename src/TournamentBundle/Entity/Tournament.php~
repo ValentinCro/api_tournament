@@ -43,13 +43,6 @@ class Tournament
     private $private;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255, nullable=true)
-     */
-    private $password;
-
-    /**
      * @var bool
      *
      * @ORM\Column(name="isInTeam", type="boolean")
@@ -57,13 +50,13 @@ class Tournament
     private $isInTeam;
 
     /**
-     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Score", mappedBy="tournamentIn")
+     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Score", mappedBy="tournamentIn", cascade={"persist"})
      */
     private $scores;
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="TournamentBundle\Entity\Team", mappedBy="tournamentsIn")
+     * @ORM\ManyToMany(targetEntity="TournamentBundle\Entity\Team", mappedBy="tournamentsIn", cascade={"persist"})
      */
     private $teams;
 
@@ -78,7 +71,7 @@ class Tournament
     private $creator;
 
     /**
-     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Rule", mappedBy="tournament")
+     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Rule", mappedBy="tournament", cascade={"persist"})
      */
     private $rules;
 
@@ -142,30 +135,6 @@ class Tournament
     }
 
     /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return Tournament
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
      * Set isInTeam
      *
      * @param boolean $isInTeam
@@ -196,6 +165,7 @@ class Tournament
         $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
         $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
         $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->rules = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

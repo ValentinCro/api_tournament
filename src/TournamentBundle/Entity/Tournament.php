@@ -50,13 +50,13 @@ class Tournament
     private $isInTeam;
 
     /**
-     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Score", mappedBy="tournamentIn")
+     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Score", mappedBy="tournament", cascade={"persist"})
      */
     private $scores;
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="TournamentBundle\Entity\Team", mappedBy="tournamentsIn")
+     * @ORM\ManyToMany(targetEntity="TournamentBundle\Entity\Team", mappedBy="tournamentsIn", cascade={"persist"})
      */
     private $teams;
 

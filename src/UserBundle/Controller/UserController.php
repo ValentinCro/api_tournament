@@ -74,9 +74,11 @@ class UserController extends Controller
      */
     public function getUsersLoginAction($login)
     {
+
+        $name = htmlspecialchars(strtolower($login));
         $data = $this->getDoctrine()
             ->getRepository('UserBundle:User')
-            ->findOneBy(array('name' => $login));
+            ->findOneBy(array('name' => $name));
         if ($data != null) {
             $user = new \UserBundle\Dto\User();
             $user->entityToDto($data);
@@ -94,8 +96,8 @@ class UserController extends Controller
         $body = $request->getContent();
         $user = $this->serializer->deserialize($body, 'UserBundle\Dto\UserLogin', 'json');
         if ($user != null) {
-            $pass = sha1($user->getUserPassword());
-            $login = htmlspecialchars($user->getUserName());
+            $pass = hash('sha256', $user->getUserPassword());
+            $login = htmlspecialchars(strtolower($user->getUserName()));
             $data = $this->getDoctrine()
                 ->getRepository('UserBundle:User')
                 ->findOneBy(array('name' => $login, 'password' => $pass));
@@ -130,8 +132,14 @@ class UserController extends Controller
         $body = $request->getContent();
         $user = $this->serializer->deserialize($body, 'UserBundle\Dto\UserLogin', 'json');
         if ($user != null) {
-            $pass = sha1($user->getUserPassword('password'));
-            $login = htmlspecialchars($user->getUserName('userName'));
+            $data = $this->getDoctrine()
+                ->getRepository('UserBundle:User')
+                ->findOneBy(array('name' => $user->getUserName()));
+            if ($data != null) {
+                return new Response('', Response::HTTP_FORBIDDEN);
+            }
+            $pass = hash('sha256', $user->getUserPassword());
+            $login = htmlspecialchars(strtolower($user->getUserName()));
             $user = new User();
             $user->setName($login);
             $user->setPassword($pass);

@@ -97,4 +97,28 @@ class Rule
     {
         return $this->earnedScore;
     }
+
+    /**
+     * Set tournament
+     *
+     * @param \TournamentBundle\Entity\Tournament $tournament
+     *
+     * @return Rule
+     */
+    public function setTournament(\TournamentBundle\Entity\Tournament $tournament = null)
+    {
+        $this->tournament = $tournament;
+
+        return $this;
+    }
+
+    /**
+     * Get tournament
+     *
+     * @return \TournamentBundle\Entity\Tournament
+     */
+    public function getTournament()
+    {
+        return $this->tournament;
+    }
 }

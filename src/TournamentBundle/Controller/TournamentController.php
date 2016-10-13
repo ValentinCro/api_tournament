@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use TournamentBundle\Entity\Score;
 use TournamentBundle\Entity\Tournament;
 use Utils\FilterDto;
 
@@ -33,7 +34,8 @@ class TournamentController extends Controller
      * @Route("/create/tournament")
      * @Method({"POST"})
      */
-    public function postCreateTournamentAction(Request $request) {
+    public function postCreateTournamentAction(Request $request)
+    {
         $token = $request->headers->get("Authorization");
 
         $data = $this->getDoctrine()
@@ -140,7 +142,8 @@ class TournamentController extends Controller
      * @Route("/tournament/{name}/name")
      * @Method({"GET", "OPTIONS"})
      */
-    public function getTournamentByNameAction($name, Request $request) {
+    public function getTournamentByNameAction($name, Request $request)
+    {
         $token = $request->headers->get("Authorization");
 
         $data = $this->getDoctrine()
@@ -289,5 +292,168 @@ class TournamentController extends Controller
         }
         $json = $this->serializer->serialize($tournamentsDto, 'json');
         return new Response($json);
+    }
+
+
+    /**
+     * @Route("/add/player")
+     * @Method({"POST"})
+     */
+    public function addPlayerAction(Request $request)
+    {
+        $token = $request->headers->get("Authorization");
+
+        $data = $this->getDoctrine()
+            ->getRepository('UserBundle:User')
+            ->findOneBy(array('token' => $token));
+
+        if ($data == null) {
+            return new Response("", Response::HTTP_FORBIDDEN);
+        }
+        $body = $request->getContent();
+        $player = $this->serializer->deserialize($body, 'TournamentBundle\Dto\PlayerDto', 'json');
+        if ($player != null) {
+            $user = $this->getDoctrine()
+                ->getRepository('UserBundle:User')
+                ->findOneBy(array('name' => $player->getName()));
+            if ($user != null) {
+                $tournament = $this->getDoctrine()
+                    ->getRepository('TournamentBundle:Tournament')
+                    ->findOneBy(array('id' => $player->getTournamentId()));
+
+                if ($tournament != null) {
+                    foreach ($tournament->getPlayers() as $p) {
+                        if ($p->getName() == $player->getName()) {
+                            return new Response("", Response::HTTP_FORBIDDEN);
+                        }
+                    }
+                    $tournament->addPlayer($user);
+                    $user->addTournamentIn($tournament);
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($tournament);
+                    $em->persist($user);
+                    $em->flush();
+
+                    $response = new \TournamentBundle\Dto\Tournament();
+                    $response->entityToDto($tournament);
+                    $json = $this->serializer->serialize($response, 'json');
+                    return new Response($json);
+                }
+                return new Response($player->getTournamentId() . "doesn't exist", Response::HTTP_FORBIDDEN);
+            }
+            return new Response($player->getName() . "doesn't exist", Response::HTTP_FORBIDDEN);
+        }
+        return new Response('', Response::HTTP_BAD_REQUEST);
+    }
+
+
+    /**
+     * @Route("/remove/player")
+     * @Method({"POST"})
+     */
+    public function removePlayerAction(Request $request)
+    {
+        $token = $request->headers->get("Authorization");
+
+        $data = $this->getDoctrine()
+            ->getRepository('UserBundle:User')
+            ->findOneBy(array('token' => $token));
+
+        if ($data == null) {
+            return new Response("", Response::HTTP_FORBIDDEN);
+        }
+        $body = $request->getContent();
+        $player = $this->serializer->deserialize($body, 'TournamentBundle\Dto\PlayerDto', 'json');
+        if ($player != null) {
+            $user = $this->getDoctrine()
+                ->getRepository('UserBundle:User')
+                ->findOneBy(array('name' => $player->getName()));
+            if ($user != null) {
+                $tournament = $this->getDoctrine()
+                    ->getRepository('TournamentBundle:Tournament')
+                    ->findOneBy(array('id' => $player->getTournamentId()));
+
+                if ($tournament != null) {
+                    $tournament->removePlayer($user);
+                    $user->removeTournamentIn($tournament);
+
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($tournament);
+                    $em->persist($user);
+                    $em->flush();
+
+
+                    $response = new \TournamentBundle\Dto\Tournament();
+                    $response->entityToDto($tournament);
+                    $json = $this->serializer->serialize($response, 'json');
+                    return new Response($json);
+                }
+                return new Response("", Response::HTTP_FORBIDDEN);
+            }
+            return new Response("", Response::HTTP_FORBIDDEN);
+        }
+        return new Response('', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @Route("/add/scores")
+     * @Method({"POST"})
+     */
+    public function addTournamentTurnAction(Request $request)
+    {
+        $token = $request->headers->get("Authorization");
+
+        $data = $this->getDoctrine()
+            ->getRepository('UserBundle:User')
+            ->findOneBy(array('token' => $token));
+
+        /*if ($data == null) {
+            return new Response("", Response::HTTP_FORBIDDEN);
+        }*/
+        $body = $request->getContent();
+        $tabScoreDto = $this->serializer->deserialize($body, 'TournamentBundle\Dto\TabScoreDto', 'json');
+        if ($tabScoreDto != null) {
+            $tournament = $this->getDoctrine()
+                ->getRepository('TournamentBundle:Tournament')
+                ->findOneBy(array('id' => $tabScoreDto->getTournamentId()));
+
+            if ($tournament != null) {
+                $em = $this->getDoctrine()->getManager();
+                foreach ($tabScoreDto->getScores() as $scoreDto) {
+                    $score = new Score();
+                    $score->setTurn($tabScoreDto->getTurn());
+                    $user = $this->getDoctrine()
+                        ->getRepository('UserBundle:User')
+                        ->findOneBy(array('id' => $scoreDto->getPlayerId()));
+                    $score->setPlayer($user);
+                    $team = $this->getDoctrine()
+                        ->getRepository('TournamentBundle:Team')
+                        ->findOneBy(array('id' => $scoreDto->getTeamId()));
+                    $score->setTeam($team);
+                    $rule = $this->getDoctrine()
+                        ->getRepository('TournamentBundle:Rule')
+                        ->findOneBy(array('tournament' => $tournament, 'position' => $scoreDto->getPosition()));
+                    if ($rule == null) {
+                        return new Response('', Response::HTTP_NOT_FOUND);
+                    }
+                    $score->setValue($rule->getEarnedScore());
+                    $score->setPosition($rule->getPosition());
+                    $tournament->addScore($score);
+                    $score->setTournament($tournament);
+                    $em->persist($score);
+                }
+                $em->persist($tournament);
+                $em->flush();
+                $response = new \TournamentBundle\Dto\Tournament();
+                $response->entityToDto($tournament);
+                $json = $this->serializer->serialize($response, 'json');
+
+                return new Response($json);
+            }
+            return new Response('', Response::HTTP_NOT_FOUND);
+        }
+        return new Response('', Response::HTTP_BAD_REQUEST);
     }
 }

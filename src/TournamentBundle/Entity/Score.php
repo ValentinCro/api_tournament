@@ -23,12 +23,12 @@ class Score
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      */
     private $player;
 
     /**
-     * @ORM\OneToOne(targetEntity="TournamentBundle\Entity\Team")
+     * @ORM\ManyToOne(targetEntity="TournamentBundle\Entity\Team")
      */
     private $team;
 
@@ -42,15 +42,21 @@ class Score
     /**
      * @var int
      *
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
+
+    /**
+     * @var int
+     *
      * @ORM\Column(name="turn", type="integer")
      */
     private $turn;
 
     /**
-     * @var int
      * @ORM\ManyToOne(targetEntity="TournamentBundle\Entity\Tournament", inversedBy="scores")
      */
-    private $tournamentIn;
+    private $tournament;
 
     /**
      * Get id
@@ -135,30 +141,6 @@ class Score
     }
 
     /**
-     * Set tournamentIn
-     *
-     * @param \TournamentBundle\Entity\Tournament $tournamentIn
-     *
-     * @return Score
-     */
-    public function setTournamentIn(\TournamentBundle\Entity\Tournament $tournamentIn = null)
-    {
-        $this->tournamentIn = $tournamentIn;
-
-        return $this;
-    }
-
-    /**
-     * Get tournamentIn
-     *
-     * @return \TournamentBundle\Entity\Tournament
-     */
-    public function getTournamentIn()
-    {
-        return $this->tournamentIn;
-    }
-
-    /**
      * @return int
      */
     public function getTurn()
@@ -176,4 +158,52 @@ class Score
         return $this;
     }
 
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     *
+     * @return Score
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Set tournament
+     *
+     * @param \TournamentBundle\Entity\Tournament $tournament
+     *
+     * @return Score
+     */
+    public function setTournament(\TournamentBundle\Entity\Tournament $tournament = null)
+    {
+        $this->tournament = $tournament;
+
+        return $this;
+    }
+
+    /**
+     * Get tournament
+     *
+     * @return \TournamentBundle\Entity\Tournament
+     */
+    public function getTournament()
+    {
+        return $this->tournament;
+    }
 }

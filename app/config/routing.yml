@@ -1,3 +1,8 @@
+invitation:
+    resource: "@InvitationBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 tournament:
     resource: "@TournamentBundle/Controller/"
     type:     annotation
