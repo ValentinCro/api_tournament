@@ -50,7 +50,21 @@ class Tournament
     private $isInTeam;
 
     /**
-     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Score", mappedBy="tournamentIn", cascade={"persist"})
+     * @var bool
+     *
+     * @ORM\Column(name="removed", type="boolean")
+     */
+    private $removed;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="finished", type="boolean")
+     */
+    private $finished;
+
+    /**
+     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Score", mappedBy="tournament", cascade={"persist"})
      */
     private $scores;
 

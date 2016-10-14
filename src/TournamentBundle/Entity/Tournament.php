@@ -50,6 +50,20 @@ class Tournament
     private $isInTeam;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="removed", type="boolean")
+     */
+    private $removed;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="finished", type="boolean")
+     */
+    private $finished;
+
+    /**
      * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Score", mappedBy="tournament", cascade={"persist"})
      */
     private $scores;
@@ -350,5 +364,53 @@ class Tournament
     public function getRules()
     {
         return $this->rules;
+    }
+
+    /**
+     * Set removed
+     *
+     * @param boolean $removed
+     *
+     * @return Tournament
+     */
+    public function setRemoved($removed)
+    {
+        $this->removed = $removed;
+
+        return $this;
+    }
+
+    /**
+     * Get removed
+     *
+     * @return boolean
+     */
+    public function getRemoved()
+    {
+        return $this->removed;
+    }
+
+    /**
+     * Set finished
+     *
+     * @param boolean $finished
+     *
+     * @return Tournament
+     */
+    public function setFinished($finished)
+    {
+        $this->finished = $finished;
+
+        return $this;
+    }
+
+    /**
+     * Get finished
+     *
+     * @return boolean
+     */
+    public function getFinished()
+    {
+        return $this->finished;
     }
 }

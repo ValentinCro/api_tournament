@@ -23,12 +23,12 @@ class Score
 
     /**
      *
-     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      */
     private $player;
 
     /**
-     * @ORM\OneToOne(targetEntity="TournamentBundle\Entity\Team")
+     * @ORM\ManyToOne(targetEntity="TournamentBundle\Entity\Team")
      */
     private $team;
 
@@ -181,5 +181,29 @@ class Score
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * Set tournament
+     *
+     * @param \TournamentBundle\Entity\Tournament $tournament
+     *
+     * @return Score
+     */
+    public function setTournament(\TournamentBundle\Entity\Tournament $tournament = null)
+    {
+        $this->tournament = $tournament;
+
+        return $this;
+    }
+
+    /**
+     * Get tournament
+     *
+     * @return \TournamentBundle\Entity\Tournament
+     */
+    public function getTournament()
+    {
+        return $this->tournament;
     }
 }

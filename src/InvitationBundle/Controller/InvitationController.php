@@ -89,7 +89,7 @@ class InvitationController extends Controller
                             $em->persist($invitation);
                             $em->flush();
 
-                            return new Response('', Response::HTTP_OK);
+                            return new Response($this->serializer->serialize($invitation, 'json'), Response::HTTP_OK);
                         }
                         return new Response('', Response::HTTP_BAD_REQUEST);
                     }
