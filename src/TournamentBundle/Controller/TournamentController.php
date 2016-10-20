@@ -53,25 +53,28 @@ class TournamentController extends Controller
         $tournamentCreate = $this->serializer->deserialize($body, 'TournamentBundle\Dto\TournamentCreate', 'json');
         if ($tournamentCreate != null) {
             $tournament = new Tournament();
-            $data = $this->getDoctrine()
+            $user = $this->getDoctrine()
                 ->getRepository('UserBundle:User')
                 ->findOneBy(array('name' => $tournamentCreate->getCreator()));
-            $tournament->setCreator($data);
+            $tournament->setCreator($user);
             $tournament->setName(htmlspecialchars($tournamentCreate->getName()));
             $tournament->setPrivate($tournamentCreate->isPrivate());
             $tournament->setIsInTeam($tournamentCreate->isInTeam());
             $tournament->setRemoved(false);
             $tournament->setFinished(false);
-            $tournament->setType($tournamentCreate->getType());
+            $data = $this->getDoctrine()
+                ->getRepository('TournamentBundle:Type')
+                ->findOneBy(array('name' => $tournamentCreate->getType()));
+            $tournament->setType($data);
             if (!$tournament->getIsInTeam()) {
-                $tournament->addPlayer($data);
-                $data->addTournamentIn($tournament);
+                $tournament->addPlayer($user);
+                $user->addTournamentIn($tournament);
             }
             $tournament->setDate(new \DateTime());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($tournament);
-            $em->persist($data);
+            $em->persist($user);
             $em->flush();
 
             $response = new \TournamentBundle\Dto\Tournament();
@@ -611,6 +614,34 @@ class TournamentController extends Controller
             $em->remove($team);
             $em->flush();
             return new Response('', Response::HTTP_OK);
+        }
+        return new Response('', Response::HTTP_NOT_FOUND);
+    }
+
+
+    /**
+     * @Route("/type")
+     * @Method({"GET"})
+     */
+    public function getTypeAction(Request $request)
+    {
+        $token = $request->headers->get("Authorization");
+
+        $data = $this->getDoctrine()
+            ->getRepository('UserBundle:User')
+            ->findOneBy(array('token' => $token));
+
+        if ($data == null) {
+            return new Response("", Response::HTTP_FORBIDDEN);
+        }
+
+        $type = $this->getDoctrine()
+            ->getRepository('TournamentBundle:Type')
+            ->findAll();
+
+        if ($type != null) {
+            $json = $this->serializer->serialize($type, 'json');
+            return new Response($json, Response::HTTP_OK);
         }
         return new Response('', Response::HTTP_NOT_FOUND);
     }

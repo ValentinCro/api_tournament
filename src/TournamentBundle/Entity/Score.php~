@@ -8,9 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
  * Score
  *
  * @ORM\Table(name="score")
- * @ORM\Entity(repositoryClass="TournamentBundle\Repository\ScoreRepository")
+ * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"score" = "Score", "scoreFFA" = "TournamentBundle\Entity\ScoreFFA", "scoreFFAGame" = "TournamentBundle\Entity\ScoreFFAGame"})
  */
-class Score
+abstract class Score
 {
     /**
      * @var int
@@ -31,7 +34,7 @@ class Score
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string")
+     * @ORM\Column(name="description", type="string", nullable=true)
      */
     private $description;
 

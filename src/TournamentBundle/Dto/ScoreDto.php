@@ -27,6 +27,12 @@ class ScoreDto
     private $position;
 
     /**
+     * @var string
+     * @Type("string")
+     */
+    private $description;
+
+    /**
      * @return int
      */
     public function getPlayerId()
@@ -79,5 +85,24 @@ class ScoreDto
         $this->position = $position;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     * @return ScoreDto
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
 }
 

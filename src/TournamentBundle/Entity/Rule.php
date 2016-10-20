@@ -8,9 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
  * Rule
  *
  * @ORM\Table(name="rule")
- * @ORM\Entity(repositoryClass="TournamentBundle\Repository\RuleRepository")
+ * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"rule" = "Rule", "ruleFFA" = "TournamentBundle\Entity\RuleFFA", "ruleFFAGame" = "TournamentBundle\Entity\RuleFFAGame"})
  */
-class Rule
+abstract class Rule
 {
     /**
      * @var int

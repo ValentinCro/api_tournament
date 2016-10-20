@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ScoreFFA
  *
  * @ORM\Table(name="scoreFFA")
- * @ORM\Entity(repositoryClass="TournamentBundle\Repository\ScoreFFARepository")
+ * @ORM\Entity
  */
 class ScoreFFA extends Score
 {
