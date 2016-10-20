@@ -4,7 +4,7 @@ namespace TournamentBundle\Dto;
 
 use JMS\Serializer\Annotation\Type;
 use TournamentBundle\TournamentBundle;
-use UserBundle\Entity\User;
+use UserBundle\Dto\User;
 
 class Tournament {
     /**
@@ -22,13 +22,13 @@ class Tournament {
 
     /**
      * @var User
-     * @Type("UserBundle\Entity\User")
+     * @Type("UserBundle\Dto\User")
      */
     private $creator;
 
     /**
      * @var array
-     * @Type("array<UserBundle\Entity\User>")
+     * @Type("array<UserBundle\Dto\User>")
      */
     private $players;
 
@@ -52,7 +52,7 @@ class Tournament {
 
     /**
      * @var array
-     * @Type("array<TournamentBundle\Entity\Score>")
+     * @Type("array<TournamentBundle\Dto\Score>")
      */
     private $scores;
 
@@ -71,12 +71,26 @@ class Tournament {
     public function entityToDto(\TournamentBundle\Entity\Tournament $tournament) {
         $this->setId($tournament->getId());
         $this->setName($tournament->getName());
-        $this->setCreator($tournament->getCreator());
+        $creator = new \UserBundle\Dto\User();
+        $creator->entityToDto($tournament->getCreator());
+        $this->setCreator($creator);
         $this->setPrivate($tournament->getPrivate());
         $this->setInTeam($tournament->getIsInTeam());
-        $this->setPlayers($tournament->getPlayers()->toArray());
+        $tmp = [];
+        foreach ($tournament->getPlayers() as $player) {
+            $userDto = new \UserBundle\Dto\User();
+            $userDto->entityToDto($player);
+            $tmp[] = $userDto;
+        }
+        $this->setPlayers($tmp);
         $this->setTeams($tournament->getTeams()->toArray());
-        $this->setScores($tournament->getScores()->toArray());
+        $tmp = [];
+        foreach ($tournament->getScores() as $score) {
+            $scoreDto = new \TournamentBundle\Dto\Score();
+            $scoreDto->entityToDto($score);
+            $tmp[] = $scoreDto;
+        }
+        $this->setScores($tmp);
         $this->setRules($tournament->getRules()->toArray());
         $this->setDate($tournament->getDate());
     }

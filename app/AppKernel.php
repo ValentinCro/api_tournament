@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new TournamentBundle\TournamentBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new InvitationBundle\InvitationBundle(),
+            new ReportingBundle\ReportingBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

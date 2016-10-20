@@ -283,7 +283,7 @@ class TournamentController extends Controller
         $em = $this->getDoctrine();
         $result = $em->getRepository("TournamentBundle:Tournament")->createQueryBuilder('t')
             ->Where('t.name LIKE :name')
-            ->Where('t.removed = false')
+            ->andWhere('t.removed = false')
             ->setParameter('name', '%' . $name . '%')
             ->getQuery()
             ->getResult();
