@@ -89,6 +89,12 @@ class Tournament
      */
     private $rules;
 
+    /**
+     * @ORM\OneToOne(targetEntity="TournamentBundle\Entity\Type")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     */
+    private $type;
+
 
     /**
      * Get id
@@ -364,5 +370,77 @@ class Tournament
     public function getRules()
     {
         return $this->rules;
+    }
+
+    /**
+     * Set removed
+     *
+     * @param boolean $removed
+     *
+     * @return Tournament
+     */
+    public function setRemoved($removed)
+    {
+        $this->removed = $removed;
+
+        return $this;
+    }
+
+    /**
+     * Get removed
+     *
+     * @return boolean
+     */
+    public function getRemoved()
+    {
+        return $this->removed;
+    }
+
+    /**
+     * Set finished
+     *
+     * @param boolean $finished
+     *
+     * @return Tournament
+     */
+    public function setFinished($finished)
+    {
+        $this->finished = $finished;
+
+        return $this;
+    }
+
+    /**
+     * Get finished
+     *
+     * @return boolean
+     */
+    public function getFinished()
+    {
+        return $this->finished;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \TournamentBundle\Entity\Type $type
+     *
+     * @return Tournament
+     */
+    public function setType(\TournamentBundle\Entity\Type $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \TournamentBundle\Entity\Type
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

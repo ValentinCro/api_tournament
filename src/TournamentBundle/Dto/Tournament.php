@@ -63,6 +63,12 @@ class Tournament {
     private $rules;
 
     /**
+     * @var \TournamentBundle\Entity\Type
+     * @Type("TournamentBundle\Entity\Type")
+     */
+    private  $type;
+
+    /**
      * @var \DateTime
      * @Type("datetime")
      */
@@ -256,6 +262,24 @@ class Tournament {
     public function setRules($rules)
     {
         $this->rules = $rules;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     * @return Tournament
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
         return $this;
     }
 

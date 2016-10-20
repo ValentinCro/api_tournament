@@ -39,6 +39,12 @@ class TournamentCreate
     private $password;
 
     /**
+     * @var string
+     * @Type("string")
+     */
+    private  $type;
+
+    /**
      * Set name
      *
      * @param string $name
@@ -131,6 +137,24 @@ class TournamentCreate
     public function setInTeam($inTeam)
     {
         $this->inTeam = $inTeam;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return TournamentCreate
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
         return $this;
     }
 

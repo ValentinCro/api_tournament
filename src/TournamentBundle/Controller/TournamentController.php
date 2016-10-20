@@ -13,7 +13,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use TournamentBundle\Dto\ScoreFFAGameDto;
 use TournamentBundle\Entity\Score;
+use TournamentBundle\Entity\ScoreFFA;
+use TournamentBundle\Entity\ScoreFFAGame;
 use TournamentBundle\Entity\Tournament;
 use Utils\FilterDto;
 
@@ -59,6 +62,7 @@ class TournamentController extends Controller
             $tournament->setIsInTeam($tournamentCreate->isInTeam());
             $tournament->setRemoved(false);
             $tournament->setFinished(false);
+            $tournament->setType($tournamentCreate->getType());
             if (!$tournament->getIsInTeam()) {
                 $tournament->addPlayer($data);
                 $data->addTournamentIn($tournament);
@@ -401,7 +405,7 @@ class TournamentController extends Controller
     }
 
     /**
-     * @Route("/add/scores")
+     * @Route("/add/scores/FFA")
      * @Method({"POST"})
      */
     public function addTournamentTurnAction(Request $request)
@@ -425,7 +429,8 @@ class TournamentController extends Controller
             if ($tournament != null) {
                 $em = $this->getDoctrine()->getManager();
                 foreach ($tabScoreDto->getScores() as $scoreDto) {
-                    $score = new Score();
+                    $score = new ScoreFFA();
+                    $score->setDescription($scoreDto->getDescription());
                     $score->setTurn($tabScoreDto->getTurn());
                     $user = $this->getDoctrine()
                         ->getRepository('UserBundle:User')
@@ -454,6 +459,91 @@ class TournamentController extends Controller
                 $json = $this->serializer->serialize($response, 'json');
 
                 return new Response($json);
+            }
+            return new Response('', Response::HTTP_NOT_FOUND);
+        }
+        return new Response('', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @Route("/add/scores/FFAGame")
+     * @Method({"POST"})
+     */
+    public function addTournamentFFAGameAction(Request $request)
+    {
+        $token = $request->headers->get("Authorization");
+
+        $data = $this->getDoctrine()
+            ->getRepository('UserBundle:User')
+            ->findOneBy(array('token' => $token));
+
+        if ($data == null) {
+            return new Response("", Response::HTTP_FORBIDDEN);
+        }
+        $body = $request->getContent();
+        $scoreFFAGameDto = $this->serializer->deserialize($body, 'TournamentBundle\Dto\ScoreFFAGameDto', 'json');
+        if ($scoreFFAGameDto != null) {
+            $tournament = $this->getDoctrine()
+                ->getRepository('TournamentBundle:Tournament')
+                ->findOneBy(array('id' => $scoreFFAGameDto->getTournamentId()));
+
+            if ($tournament != null) {
+                $em = $this->getDoctrine()->getManager();
+                $winner = $this->getDoctrine()
+                    ->getRepository('UserBundle:User')
+                    ->findOneBy(array('login' => $scoreFFAGameDto->getWinner()));
+                if ($winner != null) {
+                    $looser = $this->getDoctrine()
+                        ->getRepository('UserBundle:User')
+                        ->findOneBy(array('login' => $scoreFFAGameDto->getLooser()));
+                    if ($looser != null) {
+                        $scoreFFAGame = new ScoreFFAGame();
+                        $scoreFFAGame->setDescription($scoreFFAGameDto->getDescription());
+                        $scoreFFAGame->setLooser($looser);
+                        $scoreFFAGame->setWinner($winner);
+                        $scoreFFAGame->setTournament($tournament);
+                        if ($scoreFFAGameDto->isNull) {
+                            $rule = $this->getDoctrine()
+                                ->getRepository('TournamentBundle:RuleFFAGame')
+                                ->findOneBy(array('tournament' => $tournament, 'win' => false, 'loose' => false));
+                            if ($rule == null) {
+                                return new Response('', Response::HTTP_NOT_FOUND);
+                            }
+                            $scoreFFAGame->setNullValue($rule->getEarnedScore());
+                            $scoreFFAGame->setValue(0);
+                            $scoreFFAGame->setLooseValue(0);
+                            $scoreFFAGame->setNull(true);
+                        } else {
+                            $winRule = $this->getDoctrine()
+                                ->getRepository('TournamentBundle:RuleFFAGame')
+                                ->findOneBy(array('tournament' => $tournament, 'win' => true, 'loose' => false));
+                            if ($winRule == null) {
+                                return new Response('', Response::HTTP_NOT_FOUND);
+                            }
+                            $looseRule = $this->getDoctrine()
+                                ->getRepository('TournamentBundle:RuleFFAGame')
+                                ->findOneBy(array('tournament' => $tournament, 'win' => false, 'loose' => true));
+                            if ($looseRule == null) {
+                                return new Response('', Response::HTTP_NOT_FOUND);
+                            }
+                            $scoreFFAGame->setNullValue(0);
+                            $scoreFFAGame->setValue($winRule->getEarnedScore());
+                            $scoreFFAGame->setLooseValue($looseRule->getEarnedScore());
+                            $scoreFFAGame->setNull(false);
+                        }
+                        $tournament->addScore($scoreFFAGame);
+                        $em->persist($scoreFFAGame);
+                        $em->persist($tournament);
+                        $em->flush();
+                        $response = new \TournamentBundle\Dto\Tournament();
+                        $response->entityToDto($tournament);
+                        $json = $this->serializer->serialize($response, 'json');
+
+                        return new Response($json);
+                    }
+                    return new Response('', Response::HTTP_NOT_FOUND);
+                }
+                return new Response('', Response::HTTP_NOT_FOUND);
             }
             return new Response('', Response::HTTP_NOT_FOUND);
         }

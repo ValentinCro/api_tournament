@@ -22,17 +22,6 @@ class Score
     private $id;
 
     /**
-     *
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
-     */
-    private $player;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="TournamentBundle\Entity\Team")
-     */
-    private $team;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="value", type="integer")
@@ -40,18 +29,11 @@ class Score
     private $value;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="position", type="integer")
+     * @ORM\Column(name="description", type="string")
      */
-    private $position;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="turn", type="integer")
-     */
-    private $turn;
+    private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="TournamentBundle\Entity\Tournament", inversedBy="scores")
@@ -66,54 +48,6 @@ class Score
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set player
-     *
-     * @param \stdClass $player
-     *
-     * @return Score
-     */
-    public function setPlayer($player)
-    {
-        $this->player = $player;
-
-        return $this;
-    }
-
-    /**
-     * Get player
-     *
-     * @return \stdClass
-     */
-    public function getPlayer()
-    {
-        return $this->player;
-    }
-
-    /**
-     * Set team
-     *
-     * @param \stdClass $team
-     *
-     * @return Score
-     */
-    public function setTeam($team)
-    {
-        $this->team = $team;
-
-        return $this;
-    }
-
-    /**
-     * Get team
-     *
-     * @return \stdClass
-     */
-    public function getTeam()
-    {
-        return $this->team;
     }
 
     /**
@@ -141,49 +75,6 @@ class Score
     }
 
     /**
-     * @return int
-     */
-    public function getTurn()
-    {
-        return $this->turn;
-    }
-
-    /**
-     * @param int $turn
-     * @return Score
-     */
-    public function setTurn($turn)
-    {
-        $this->turn = $turn;
-        return $this;
-    }
-
-
-    /**
-     * Set position
-     *
-     * @param integer $position
-     *
-     * @return Score
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return integer
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
      * Set tournament
      *
      * @param \TournamentBundle\Entity\Tournament $tournament
@@ -205,5 +96,30 @@ class Score
     public function getTournament()
     {
         return $this->tournament;
+    }
+    
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Score
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
