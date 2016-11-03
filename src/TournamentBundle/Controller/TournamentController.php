@@ -14,6 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use TournamentBundle\Dto\ScoreFFAGameDto;
+use TournamentBundle\Entity\Rule;
 use TournamentBundle\Entity\Score;
 use TournamentBundle\Entity\ScoreFFA;
 use TournamentBundle\Entity\ScoreFFAGame;
@@ -65,7 +66,10 @@ class TournamentController extends Controller
             $data = $this->getDoctrine()
                 ->getRepository('TournamentBundle:Type')
                 ->findOneBy(array('name' => $tournamentCreate->getType()));
-            $tournament->setType($data);
+            if ($data == null) {
+                return new Response('', Response::HTTP_BAD_REQUEST);
+            }
+            $tournament->setType($data->getName());
             if (!$tournament->getIsInTeam()) {
                 $tournament->addPlayer($user);
                 $user->addTournamentIn($tournament);
@@ -229,33 +233,52 @@ class TournamentController extends Controller
             ->getRepository('UserBundle:User')
             ->findOneBy(array('token' => $token));
 
-        if ($data == null) {
+        /*if ($data == null) {
             return new Response("", Response::HTTP_FORBIDDEN);
-        }
+        }*/
 
         $body = $request->getContent();
-        $rules = $this->serializer->deserialize($body, 'TournamentBundle\Dto\AddRules', 'json');
-        if ($rules != null) {
-            $data = $this->getDoctrine()
+        $rulesDto = $this->serializer->deserialize($body, 'TournamentBundle\Dto\AddRules', 'json');
+        if ($rulesDto != null) {
+            $tournament = $this->getDoctrine()
                 ->getRepository('TournamentBundle:Tournament')
-                ->findOneBy(array('id' => $rules->getTournamentId()));
+                ->findOneBy(array('id' => $rulesDto->getTournamentId()));
+
+            if ($tournament->getRules() != null) {
+                $tournament->getRules()->setTournament(null);
+                $tournament->setRules(null);
+            }
 
             $em = $this->getDoctrine()->getManager();
-            foreach ($data->getRules() as $rule) {
-                $data->removeRule($rule);
-                $rule->setTournament(null);
+            if ($tournament->getType() == "FFA") {
+
+                $rules = new Rule();
+                $rules->setTournament($tournament);
+
+                foreach ($rulesDto->getRulesFFA() as $rule) {
+                    $rules->addRulesFFA($rule);
+                    $rule->setRule($rules);
+                }
+                $tournament->setRules($rules);
+                $em->persist($rules);
+            } else if ($tournament->getType() == "FFA_GAME") {
+
+                $rules = new Rule();
+                $rules->setTournament($tournament);
+
+                foreach ($rulesDto->getRulesFFAGame() as $rule) {
+                    $rules->addRulesFFAGame($rule);
+                    $rule->setRule($rules);
+                }
+                $em->persist($rules);
+                $tournament->setRules($rules);
             }
 
-            foreach ($rules->getRules() as $rule) {
-                $rule->setTournament($data);
-                $data->addRule($rule);
-            }
-
-            $em->persist($data);
+            $em->persist($tournament);
             $em->flush();
 
             $response = new \TournamentBundle\Dto\Tournament();
-            $response->entityToDto($data);
+            $response->entityToDto($tournament);
 
             $data = $this->getDoctrine()
                 ->getRepository('TournamentBundle:Rule')
@@ -444,7 +467,7 @@ class TournamentController extends Controller
                         ->findOneBy(array('id' => $scoreDto->getTeamId()));
                     $score->setTeam($team);
                     $rule = $this->getDoctrine()
-                        ->getRepository('TournamentBundle:Rule')
+                        ->getRepository('TournamentBundle:RuleFFA')
                         ->findOneBy(array('tournament' => $tournament, 'position' => $scoreDto->getPosition()));
                     if ($rule == null) {
                         return new Response('', Response::HTTP_NOT_FOUND);

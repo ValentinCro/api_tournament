@@ -43,6 +43,13 @@ class Tournament
     private $private;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string")
+     */
+    private $type;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="isInTeam", type="boolean")
@@ -85,25 +92,52 @@ class Tournament
     private $creator;
 
     /**
-     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\Rule", mappedBy="tournament", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="TournamentBundle\Entity\Rule", cascade={"persist"})
+     * @ORM\JoinColumn(name="rule_id", referencedColumnName="id")
      */
     private $rules;
-
     /**
-     * @ORM\OneToOne(targetEntity="TournamentBundle\Entity\Type")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     * Constructor
      */
-    private $type;
-
+    public function __construct()
+    {
+        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Tournament
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 
     /**
@@ -147,7 +181,7 @@ class Tournament
     /**
      * Get private
      *
-     * @return bool
+     * @return boolean
      */
     public function getPrivate()
     {
@@ -171,21 +205,59 @@ class Tournament
     /**
      * Get isInTeam
      *
-     * @return bool
+     * @return boolean
      */
     public function getIsInTeam()
     {
         return $this->isInTeam;
     }
+
     /**
-     * Constructor
+     * Set removed
+     *
+     * @param boolean $removed
+     *
+     * @return Tournament
      */
-    public function __construct()
+    public function setRemoved($removed)
     {
-        $this->scores = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->rules = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->removed = $removed;
+
+        return $this;
+    }
+
+    /**
+     * Get removed
+     *
+     * @return boolean
+     */
+    public function getRemoved()
+    {
+        return $this->removed;
+    }
+
+    /**
+     * Set finished
+     *
+     * @param boolean $finished
+     *
+     * @return Tournament
+     */
+    public function setFinished($finished)
+    {
+        $this->finished = $finished;
+
+        return $this;
+    }
+
+    /**
+     * Get finished
+     *
+     * @return boolean
+     */
+    public function getFinished()
+    {
+        return $this->finished;
     }
 
     /**
@@ -297,7 +369,7 @@ class Tournament
      *
      * @return Tournament
      */
-    public function setCreator(\UserBundle\Entity\User $creator = null)
+    public function setCreator(\UserBundle\Entity\User $creator)
     {
         $this->creator = $creator;
 
@@ -315,132 +387,26 @@ class Tournament
     }
 
     /**
-     * Set date
+     * Set rules
      *
-     * @param \DateTime $date
-     *
-     * @return Tournament
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Add rule
-     *
-     * @param \TournamentBundle\Entity\Rule $rule
+     * @param \TournamentBundle\Entity\Rule $rules
      *
      * @return Tournament
      */
-    public function addRule(\TournamentBundle\Entity\Rule $rule)
+    public function setRules(\TournamentBundle\Entity\Rule $rules)
     {
-        $this->rules[] = $rule;
+        $this->rules = $rules;
 
         return $this;
-    }
-
-    /**
-     * Remove rule
-     *
-     * @param \TournamentBundle\Entity\Rule $rule
-     */
-    public function removeRule(\TournamentBundle\Entity\Rule $rule)
-    {
-        $this->rules->removeElement($rule);
     }
 
     /**
      * Get rules
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \TournamentBundle\Entity\Rule
      */
     public function getRules()
     {
         return $this->rules;
-    }
-
-    /**
-     * Set removed
-     *
-     * @param boolean $removed
-     *
-     * @return Tournament
-     */
-    public function setRemoved($removed)
-    {
-        $this->removed = $removed;
-
-        return $this;
-    }
-
-    /**
-     * Get removed
-     *
-     * @return boolean
-     */
-    public function getRemoved()
-    {
-        return $this->removed;
-    }
-
-    /**
-     * Set finished
-     *
-     * @param boolean $finished
-     *
-     * @return Tournament
-     */
-    public function setFinished($finished)
-    {
-        $this->finished = $finished;
-
-        return $this;
-    }
-
-    /**
-     * Get finished
-     *
-     * @return boolean
-     */
-    public function getFinished()
-    {
-        return $this->finished;
-    }
-
-    /**
-     * Set type
-     *
-     * @param \TournamentBundle\Entity\Type $type
-     *
-     * @return Tournament
-     */
-    public function setType(\TournamentBundle\Entity\Type $type = null)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return \TournamentBundle\Entity\Type
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 }

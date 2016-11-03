@@ -9,11 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="rule")
  * @ORM\Entity
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"rule" = "Rule", "ruleFFA" = "TournamentBundle\Entity\RuleFFA", "ruleFFAGame" = "TournamentBundle\Entity\RuleFFAGame"})
  */
-abstract class Rule
+class Rule
 {
     /**
      * @var int
@@ -25,80 +22,37 @@ abstract class Rule
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="position", type="integer")
-     */
-    private $position;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="earnedScore", type="integer")
-     */
-    private $earnedScore;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="TournamentBundle\Entity\Tournament", inversedBy="rules")
+     * @ORM\OneToOne(targetEntity="TournamentBundle\Entity\Tournament")
+     * @ORM\JoinColumn(name="tournament_id", referencedColumnName="id")
      */
     private $tournament;
 
     /**
+     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\RuleFFA", mappedBy="rule", cascade={"persist"})
+     */
+    private $rulesFFA;
+
+    /**
+     * @ORM\OneToMany(targetEntity="TournamentBundle\Entity\RuleFFAGame", mappedBy="rule", cascade={"persist"})
+     */
+    private $rulesFFAGame;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->rulesFFA = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->rulesFFAGame = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set position
-     *
-     * @param integer $position
-     *
-     * @return Rule
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return int
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
-     * Set earnedScore
-     *
-     * @param integer $earnedScore
-     *
-     * @return Rule
-     */
-    public function setEarnedScore($earnedScore)
-    {
-        $this->earnedScore = $earnedScore;
-
-        return $this;
-    }
-
-    /**
-     * Get earnedScore
-     *
-     * @return int
-     */
-    public function getEarnedScore()
-    {
-        return $this->earnedScore;
     }
 
     /**
@@ -123,5 +77,73 @@ abstract class Rule
     public function getTournament()
     {
         return $this->tournament;
+    }
+
+    /**
+     * Add rulesFFA
+     *
+     * @param \TournamentBundle\Entity\RuleFFA $rulesFFA
+     *
+     * @return Rule
+     */
+    public function addRulesFFA(\TournamentBundle\Entity\RuleFFA $rulesFFA)
+    {
+        $this->rulesFFA[] = $rulesFFA;
+
+        return $this;
+    }
+
+    /**
+     * Remove rulesFFA
+     *
+     * @param \TournamentBundle\Entity\RuleFFA $rulesFFA
+     */
+    public function removeRulesFFA(\TournamentBundle\Entity\RuleFFA $rulesFFA)
+    {
+        $this->rulesFFA->removeElement($rulesFFA);
+    }
+
+    /**
+     * Get rulesFFA
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRulesFFA()
+    {
+        return $this->rulesFFA;
+    }
+
+    /**
+     * Add rulesFFAGame
+     *
+     * @param \TournamentBundle\Entity\RuleFFAGame $rulesFFAGame
+     *
+     * @return Rule
+     */
+    public function addRulesFFAGame(\TournamentBundle\Entity\RuleFFAGame $rulesFFAGame)
+    {
+        $this->rulesFFAGame[] = $rulesFFAGame;
+
+        return $this;
+    }
+
+    /**
+     * Remove rulesFFAGame
+     *
+     * @param \TournamentBundle\Entity\RuleFFAGame $rulesFFAGame
+     */
+    public function removeRulesFFAGame(\TournamentBundle\Entity\RuleFFAGame $rulesFFAGame)
+    {
+        $this->rulesFFAGame->removeElement($rulesFFAGame);
+    }
+
+    /**
+     * Get rulesFFAGame
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRulesFFAGame()
+    {
+        return $this->rulesFFAGame;
     }
 }

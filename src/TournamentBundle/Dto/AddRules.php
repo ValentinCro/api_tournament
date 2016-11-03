@@ -10,31 +10,21 @@ class AddRules
 {
     /**
      * @var array
-     * @Type("array<TournamentBundle\Entity\Rule>")
+     * @Type("array<TournamentBundle\Entity\RuleFFA>")
      */
-    private $rules;
+    private $rulesFFA;
+
+    /**
+     * @var array
+     * @Type("array<TournamentBundle\Entity\RuleFFAGame>")
+     */
+    private $rulesFFAGame;
 
     /**
      * @var integer
      * @Type("integer")
      */
     private $tournamentId;
-
-    /**
-     * @return array
-     */
-    public function getRules()
-    {
-        return $this->rules;
-    }
-
-    /**
-     * @param array $rules
-     */
-    public function setRules($rules)
-    {
-        $this->rules = $rules;
-    }
 
     /**
      * @return int
@@ -50,6 +40,42 @@ class AddRules
     public function setTournamentId($tournamentId)
     {
         $this->tournamentId = $tournamentId;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRulesFFA()
+    {
+        return $this->rulesFFA;
+    }
+
+    /**
+     * @param array $rulesFFA
+     * @return AddRules
+     */
+    public function setRulesFFA($rulesFFA)
+    {
+        $this->rulesFFA = $rulesFFA;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRulesFFAGame()
+    {
+        return $this->rulesFFAGame;
+    }
+
+    /**
+     * @param array $rulesFFAGame
+     * @return AddRules
+     */
+    public function setRulesFFAGame($rulesFFAGame)
+    {
+        $this->rulesFFAGame = $rulesFFAGame;
+        return $this;
     }
 
 }

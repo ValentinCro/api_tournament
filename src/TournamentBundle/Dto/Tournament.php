@@ -3,6 +3,7 @@
 namespace TournamentBundle\Dto;
 
 use JMS\Serializer\Annotation\Type;
+use TournamentBundle\Entity\Rule;
 use TournamentBundle\TournamentBundle;
 use UserBundle\Dto\User;
 
@@ -57,14 +58,14 @@ class Tournament {
     private $scores;
 
     /**
-     * @var array
-     * @Type("array<TournamentBundle\Entity\Rule>")
+     * @var \TournamentBundle\Entity\Rule
+     * @Type("TournamentBundle\Entity\Rule")
      */
     private $rules;
 
     /**
-     * @var \TournamentBundle\Entity\Type
-     * @Type("TournamentBundle\Entity\Type")
+     * @var string
+     * @Type("string")
      */
     private  $type;
 
@@ -97,8 +98,9 @@ class Tournament {
             $tmp[] = $scoreDto;
         }
         $this->setScores($tmp);
-        $this->setRules($tournament->getRules()->toArray());
+        $this->setRules($tournament->getRules());
         $this->setDate($tournament->getDate());
+        $this->setType($tournament->getType());
     }
 
     /**
@@ -248,7 +250,7 @@ class Tournament {
     }
 
     /**
-     * @return array
+     * @return Rule
      */
     public function getRules()
     {
@@ -256,7 +258,7 @@ class Tournament {
     }
 
     /**
-     * @param array $rules
+     * @param Rule $rules
      * @return Tournament
      */
     public function setRules($rules)
