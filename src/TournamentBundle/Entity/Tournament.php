@@ -189,6 +189,30 @@ class Tournament
     }
 
     /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Tournament
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * Set isInTeam
      *
      * @param boolean $isInTeam
@@ -369,7 +393,7 @@ class Tournament
      *
      * @return Tournament
      */
-    public function setCreator(\UserBundle\Entity\User $creator)
+    public function setCreator(\UserBundle\Entity\User $creator = null)
     {
         $this->creator = $creator;
 
@@ -393,7 +417,7 @@ class Tournament
      *
      * @return Tournament
      */
-    public function setRules(\TournamentBundle\Entity\Rule $rules)
+    public function setRules(\TournamentBundle\Entity\Rule $rules = null)
     {
         $this->rules = $rules;
 
@@ -408,29 +432,5 @@ class Tournament
     public function getRules()
     {
         return $this->rules;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Tournament
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 }
